@@ -11,32 +11,27 @@ body {
 
 .main-menu-container {
     width: 100%;
-    max-width: 450px;
+    max-width: 450px; /* จำกัดความกว้างสูงสุดให้เหมือนหน้าจอมือถือ */
     height: 100vh;
-    max-height: 800px;
     position: relative;
-    
-    /* ใช้ภาพ Play.jpg เป็นพื้นหลังหลัก */
     background-image: url('Play.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center; /* จัดให้อยู่ตรงกลาง */
-    padding-top: 20vh; /* เลื่อนเนื้อหาลงมาเล็กน้อย */
+    justify-content: center;
+    padding-top: 20vh;
 }
 
-/* ปรับตำแหน่งปุ่มให้วางอยู่บนรูปภาพ */
 .button-section {
     display: flex;
     flex-direction: column;
     gap: 20px;
     position: relative;
     z-index: 2;
-    margin-top: 15vh; /* เลื่อนปุ่มลงมาในตำแหน่งที่ต้องการ */
+    margin-top: 15vh;
 }
 
 .menu-button {
