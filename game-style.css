@@ -1,37 +1,44 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif; /* เปลี่ยนฟอนต์ให้เข้ากับหน้าหลัก */
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #2c3e50;
-    color: #ecf0f1;
+    background-color: #F8E9C7; /* สีพื้นหลังส้มอ่อนจากหน้าหลัก */
+    color: #333; /* สีตัวอักษรเริ่มต้นเข้มขึ้น */
     margin: 0;
+    overflow: hidden; /* ป้องกัน scrollbar เกิน */
 }
 
 .game-container {
     text-align: center;
-    background: #34495e;
+    background: #F7D59A; /* สีส้มอ่อนจากดีไซน์ของคุณ */
     padding: 2rem;
     border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-    /* เพิ่มโค้ด 2 บรรทัดนี้ */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* เงาอ่อนลง */
     width: 100%;
-    max-width: 450px; /* จำกัดความกว้างสูงสุด */
+    max-width: 450px; /* จำกัดความกว้างให้เหมือนหน้าจอมือถือ */
+    box-sizing: border-box; /* ให้ padding อยู่ใน width */
 }
 
 h1 {
-    font-size: 2.5rem;
-    color: #f1c40f;
-    margin-bottom: 1rem;
+    font-size: 2.8rem; /* ขนาดใหญ่ขึ้น */
+    color: #E74C3C; /* สีแดงสดจากดีไซน์ของคุณ */
+    margin-bottom: 1.5rem;
+    text-shadow: 
+        -1px -1px 0 #FFF,  
+         1px -1px 0 #FFF,
+        -1px  1px 0 #FFF,
+         1px  1px 0 #FFF; /* ขอบขาว */
 }
 
 #grid-container {
     display: grid;
-    border: 2px solid #bdc3c7;
-    background-color: #ecf0f1;
+    border: 2px solid #E74C3C; /* ขอบตารางสีแดง */
+    background-color: #FFF; /* พื้นหลังตารางสีขาว */
     border-radius: 5px;
     padding: 5px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
 }
 
 .grid-cell {
@@ -42,29 +49,36 @@ h1 {
     align-items: center;
     font-size: 1.2rem;
     font-weight: bold;
-    color: #2c3e50;
+    color: #555; /* สีตัวอักษรในเซลล์ */
     cursor: pointer;
     user-select: none;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .grid-cell.selected {
-    background-color: #3498db;
+    background-color: #FF7F50; /* สีส้มอ่อนเมื่อเลือก */
     color: white;
+    border-radius: 3px;
 }
 
 .grid-cell.found {
-    background-color: #27ae60;
+    background-color: #27AE60; /* สีเขียวเมื่อพบคำ */
     color: white;
+    border-radius: 3px;
 }
 
 #word-list-container {
-    margin-top: 1.5rem;
+    margin-top: 2rem;
+    background-color: #FFF; /* พื้นหลังรายการคำสีขาว */
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 h2 {
-    color: #f39c12;
-    margin-bottom: 0.5rem;
+    color: #E74C3C; /* สีแดงสดสำหรับหัวข้อ */
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
 }
 
 #word-list {
@@ -77,22 +91,29 @@ h2 {
 }
 
 #word-list li {
-    background: #2980b9;
-    padding: 5px 15px;
-    border-radius: 5px;
+    background: #FF7F50; /* สีส้มอ่อนสำหรับคำในรายการ */
+    color: white;
+    padding: 8px 18px;
+    border-radius: 20px; /* ปรับให้โค้งมนขึ้น */
     font-size: 1.1rem;
+    font-weight: bold;
     transition: background-color 0.2s ease;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.2);
 }
 
 #word-list li.found {
-    background: #27ae60;
+    background: #27AE60; /* สีเขียวเมื่อพบคำ */
     text-decoration: line-through;
-    color: #bdc3c7;
+    color: #F8E9C7; /* สีพื้นหลังอ่อนๆ ให้ดูจางลง */
 }
 
 #message {
-    margin-top: 1.5rem;
-    font-size: 1.2rem;
+    margin-top: 2rem;
+    font-size: 1.4rem;
     font-weight: bold;
-    color: #e74c3c;
+    color: #E74C3C; /* สีแดงสดสำหรับข้อความแจ้งเตือน */
+    background-color: #FFF;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
