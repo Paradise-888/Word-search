@@ -10,7 +10,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (settingButton) {
         settingButton.addEventListener('click', () => {
-            alert('Setting button clicked!');
+            // ตรวจสอบสถานะโหมดมืดปัจจุบัน
+            const isDarkMode = localStorage.getItem('darkMode') === 'true';
+            
+            // สลับสถานะและบันทึกใน localStorage
+            localStorage.setItem('darkMode', !isDarkMode);
+
+            // แสดงข้อความแจ้งเตือนผู้ใช้
+            if (!isDarkMode) {
+                alert('Dark Mode is ON. Enjoy playing in low light!');
+            } else {
+                alert('Dark Mode is OFF. Back to light theme!');
+            }
         });
     }
 });
