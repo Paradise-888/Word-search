@@ -151,7 +151,7 @@ body {
     width: 90%; /* ขนาดแมว */
     max-width: 400px; /* จำกัดขนาดสูงสุด */
     height: 40%; /* กำหนดความสูงตามภาพ */
-    background-image: url('https://i.imgur.com/example_cat_image.png'); /* <--- เปลี่ยน URL นี้เป็นรูปแมวของคุณ */
+    background-image: url('Play.png'); /* <--- เปลี่ยน URL นี้เป็นรูปแมวของคุณ */
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center bottom; /* จัดตำแหน่งแมวให้อยู่ด้านล่าง */
@@ -171,4 +171,5 @@ body {
         font-size: 1.5rem;
         padding: 12px 40px;
     }
+
 }
