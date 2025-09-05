@@ -7,8 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // ชุดคำศัพท์หลัก
     const wordSets = [
         ["JAVASCRIPT", "PYTHON", "HTML", "CSS", "CODE", "SEARCH", "GAME", "WEB"],
-        ["DESIGN", "PROGRAMMING", "PROJECT", "BUILD", "FRONTEND", "BACKEND", "LIBRARY"],
-        ["COMPUTER", "KEYBOARD", "MOUSE", "MONITOR", "HARDWARE", "SOFTWARE"]
+        ["LION", "TIGER", "BEAR", "ELEPHANT", "ZEBRA", "PANDA", "MONKEY"],
+        ["PARIS", "TOKYO", "LONDON", "ROME", "CAIRO", "SYDNEY", "BANGKOK"]
     ];
 
     let currentWordSetIndex = 0;
@@ -23,10 +23,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const gridContainer = document.getElementById("grid-container");
     const wordList = document.getElementById("word-list");
     const messageDisplay = document.getElementById("message");
+    const nextButton = document.getElementById("next-button");
 
     // สร้างตารางตัวอักษร
     function createGrid() {
         gridContainer.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
+        gridContainer.innerHTML = '';
+        grid.length = 0;
         for (let i = 0; i < gridSize * gridSize; i++) {
             const cell = document.createElement("div");
             cell.classList.add("grid-cell");
@@ -138,8 +141,8 @@ document.addEventListener('DOMContentLoaded', () => {
         showMessage("Great! Word Found!");
 
         if (foundWords.length === words.length) {
-            showMessage("Congratulations! You found all the words! Starting a new game...");
-            setTimeout(startNewGame, 3000); // เริ่มเกมใหม่หลังจาก 3 วินาที
+            showMessage("Congratulations! You found all the words!", "green");
+            nextButton.style.display = 'block'; // Show the Next button
         }
     }
 
@@ -147,6 +150,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function showMessage(msg, color = "red") {
         messageDisplay.textContent = msg;
         messageDisplay.style.color = color;
+        // Keep the message visible until the game is reset
+        if (msg.includes("Congratulations")) {
+            return;
+        }
         setTimeout(() => messageDisplay.textContent = "", 2000);
     }
 
@@ -199,20 +206,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // ฟังก์ชันสำหรับรีเซ็ตเกม
-    function resetGame() {
-        grid.forEach(cell => cell.textContent = '');
-        grid.length = 0;
+    // ฟังก์ชันสำหรับเริ่มเกมใหม่
+    function startNewGame() {
+        nextButton.style.display = 'none'; // Hide the Next button
         currentSelectedCells = [];
         foundWords = [];
         gridContainer.innerHTML = '';
         messageDisplay.textContent = '';
         wordList.innerHTML = '';
-    }
 
-    // ฟังก์ชันสำหรับเริ่มเกมใหม่
-    function startNewGame() {
-        resetGame();
         // สลับไปใช้ชุดคำศัพท์ถัดไป
         currentWordSetIndex = (currentWordSetIndex + 1) % wordSets.length;
         words = wordSets[currentWordSetIndex];
@@ -226,37 +228,40 @@ document.addEventListener('DOMContentLoaded', () => {
         placeWords();
         fillGrid();
         showWordList();
-
-        // Event listeners
-        gridContainer.addEventListener("mousedown", (e) => {
-            startCell = e.target;
-            startCell.classList.add("selected");
-            currentSelectedCells.push(startCell);
-        });
-        gridContainer.addEventListener("mousemove", (e) => {
-            if (!startCell) return;
-            handleSelection(e);
-        });
-        gridContainer.addEventListener("mouseup", () => {
-            checkWord();
-            startCell = null;
-        });
-        gridContainer.addEventListener("touchstart", (e) => {
-            e.preventDefault();
-            startCell = document.elementFromPoint(e.touches[0].clientX, e.touches[0].clientY);
-            startCell.classList.add("selected");
-            currentSelectedCells.push(startCell);
-        });
-        gridContainer.addEventListener("touchmove", (e) => {
-            e.preventDefault();
-            if (!startCell) return;
-            handleSelection(e);
-        });
-        gridContainer.addEventListener("touchend", () => {
-            checkWord();
-            startCell = null;
-        });
     }
+
+    // Event listener สำหรับปุ่ม Next
+    nextButton.addEventListener('click', startNewGame);
+
+    // Event listeners สำหรับการควบคุมด้วยเมาส์และนิ้ว
+    gridContainer.addEventListener("mousedown", (e) => {
+        startCell = e.target;
+        startCell.classList.add("selected");
+        currentSelectedCells.push(startCell);
+    });
+    gridContainer.addEventListener("mousemove", (e) => {
+        if (!startCell) return;
+        handleSelection(e);
+    });
+    gridContainer.addEventListener("mouseup", () => {
+        checkWord();
+        startCell = null;
+    });
+    gridContainer.addEventListener("touchstart", (e) => {
+        e.preventDefault();
+        startCell = document.elementFromPoint(e.touches[0].clientX, e.touches[0].clientY);
+        startCell.classList.add("selected");
+        currentSelectedCells.push(startCell);
+    });
+    gridContainer.addEventListener("touchmove", (e) => {
+        e.preventDefault();
+        if (!startCell) return;
+        handleSelection(e);
+    });
+    gridContainer.addEventListener("touchend", () => {
+        checkWord();
+        startCell = null;
+    });
 
     // เรียกฟังก์ชันเริ่มต้นเกมเมื่อโหลดหน้า
     init();

@@ -204,3 +204,23 @@ body.dark-mode #message {
     background-color: #383838;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
 }
+
+/* สไตล์สำหรับปุ่ม Next */
+.next-button {
+    margin-top: 1rem;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    background-color: #3498DB;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 4px 0px #2980B9;
+    transition: all 0.2s ease;
+}
+
+.next-button:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0px #2980B9;
+}

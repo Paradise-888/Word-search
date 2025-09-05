@@ -3,16 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Word Craft - Main Menu</title>
-    <link rel="stylesheet" href="menu-style.css">
+    <title>Word Search Game</title>
+    <link rel="stylesheet" href="game-style.css">
 </head>
 <body>
-    <div class="main-menu-container">
-        <div class="button-section">
-            <button class="menu-button" id="play-button">PLAY</button>
-            <button class="menu-button" id="setting-button">SETTING</button>
+    <div class="game-container">
+        <h1>Word Search</h1>
+        <div id="grid-container"></div>
+        <div id="word-list-container">
+            <h2>Words to Find</h2>
+            <ul id="word-list"></ul>
         </div>
+        <div id="message"></div>
+        <div class="game-cat-image"></div>
+        <button id="next-button" class="next-button" style="display:none;">Next</button>
     </div>
-    <script src="menu-script.js"></script>
+    <script src="game-script.js"></script>
 </body>
 </html>
