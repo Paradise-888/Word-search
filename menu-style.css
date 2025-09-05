@@ -11,11 +11,18 @@ body {
 
 .main-menu-container {
     width: 100%;
+    max-width: 450px;
     height: 100vh;
-    background-image: url('Play.jpg'); /*<-- เปลี่ยนชื่อไฟล์ให้ถูกต้อง */
-    background-size: contain;
+    position: relative;
+    background-image: url('Play.jpg');
+    background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 20vh;
 }
 
 .button-section {
@@ -25,6 +32,8 @@ body {
     position: relative;
     z-index: 2;
     margin-top: 15vh;
+    width: 100%;
+    align-items: center;
 }
 
 .menu-button {
@@ -39,6 +48,8 @@ body {
     cursor: pointer;
     transition: all 0.2s ease;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    max-width: 250px;
+    width: 80%;
 }
 
 .menu-button:active {

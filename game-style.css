@@ -1,44 +1,51 @@
 body {
-    font-family: 'Arial', sans-serif; /* เปลี่ยนฟอนต์ให้เข้ากับหน้าหลัก */
+    font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #F8E9C7; /* สีพื้นหลังส้มอ่อนจากหน้าหลัก */
-    color: #333; /* สีตัวอักษรเริ่มต้นเข้มขึ้น */
+    background-color: #F8E9C7; /* เปลี่ยนสีพื้นหลังเป็นสีส้มอ่อน */
+    color: #333;
     margin: 0;
     overflow: hidden; /* ป้องกัน scrollbar เกิน */
 }
 
 .game-container {
     text-align: center;
-    background: #F7D59A; /* สีส้มอ่อนจากดีไซน์ของคุณ */
+    background: #F7D59A; /* สีส้มอ่อนสำหรับพื้นหลังเกม */
     padding: 2rem;
     border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* เงาอ่อนลง */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
     width: 100%;
-    max-width: 450px; /* จำกัดความกว้างให้เหมือนหน้าจอมือถือ */
+    max-width: 450px;
     box-sizing: border-box; /* ให้ padding อยู่ใน width */
+    position: relative; /* สำคัญ: เพื่อให้กำหนดตำแหน่ง absolute ของรูปแมวได้ */
+    min-height: 70vh; /* เพื่อให้มีพื้นที่สำหรับรูปแมว */
+    display: flex; /* ใช้ flexbox จัดเรียงองค์ประกอบภายใน */
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* จัดเรียงจากด้านบน */
 }
 
 h1 {
-    font-size: 2.8rem; /* ขนาดใหญ่ขึ้น */
-    color: #E74C3C; /* สีแดงสดจากดีไซน์ของคุณ */
+    font-size: 2.8rem;
+    color: #E74C3C;
     margin-bottom: 1.5rem;
-    text-shadow: 
-        -1px -1px 0 #FFF,  
+    text-shadow:
+        -1px -1px 0 #FFF,
          1px -1px 0 #FFF,
         -1px  1px 0 #FFF,
-         1px  1px 0 #FFF; /* ขอบขาว */
+         1px  1px 0 #FFF;
 }
 
 #grid-container {
     display: grid;
-    border: 2px solid #E74C3C; /* ขอบตารางสีแดง */
-    background-color: #FFF; /* พื้นหลังตารางสีขาว */
+    border: 2px solid #E74C3C;
+    background-color: #FFF;
     border-radius: 5px;
     padding: 5px;
     box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    margin-bottom: 1.5rem; /* เพิ่มระยะห่างด้านล่าง */
 }
 
 .grid-cell {
@@ -49,34 +56,35 @@ h1 {
     align-items: center;
     font-size: 1.2rem;
     font-weight: bold;
-    color: #555; /* สีตัวอักษรในเซลล์ */
+    color: #555;
     cursor: pointer;
     user-select: none;
     transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .grid-cell.selected {
-    background-color: #FF7F50; /* สีส้มอ่อนเมื่อเลือก */
+    background-color: #FF7F50;
     color: white;
     border-radius: 3px;
 }
 
 .grid-cell.found {
-    background-color: #27AE60; /* สีเขียวเมื่อพบคำ */
+    background-color: #27AE60;
     color: white;
     border-radius: 3px;
 }
 
 #word-list-container {
     margin-top: 2rem;
-    background-color: #FFF; /* พื้นหลังรายการคำสีขาว */
+    background-color: #FFF;
     padding: 1rem;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    width: 90%; /* ให้รายการคำกว้างขึ้น */
 }
 
 h2 {
-    color: #E74C3C; /* สีแดงสดสำหรับหัวข้อ */
+    color: #E74C3C;
     margin-bottom: 1rem;
     font-size: 1.5rem;
 }
@@ -91,10 +99,10 @@ h2 {
 }
 
 #word-list li {
-    background: #FF7F50; /* สีส้มอ่อนสำหรับคำในรายการ */
+    background: #FF7F50;
     color: white;
     padding: 8px 18px;
-    border-radius: 20px; /* ปรับให้โค้งมนขึ้น */
+    border-radius: 20px;
     font-size: 1.1rem;
     font-weight: bold;
     transition: background-color 0.2s ease;
@@ -102,18 +110,43 @@ h2 {
 }
 
 #word-list li.found {
-    background: #27AE60; /* สีเขียวเมื่อพบคำ */
+    background: #27AE60;
     text-decoration: line-through;
-    color: #F8E9C7; /* สีพื้นหลังอ่อนๆ ให้ดูจางลง */
+    color: #F8E9C7;
 }
 
 #message {
     margin-top: 2rem;
     font-size: 1.4rem;
     font-weight: bold;
-    color: #E74C3C; /* สีแดงสดสำหรับข้อความแจ้งเตือน */
+    color: #E74C3C;
     background-color: #FFF;
     padding: 10px;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* สไตล์สำหรับรูปภาพแมวในหน้าเกม */
+.game-cat-image {
+    position: absolute; /* กำหนดตำแหน่งแบบสัมพัทธ์กับ .game-container */
+    bottom: 0; /* ชิดขอบล่าง */
+    right: -20px; /* ยื่นออกมาทางขวาเล็กน้อย */
+    width: 200px; /* ขนาดของรูปแมว */
+    height: 200px;
+    background-image: url('image/cat1.png'); /* <--- ตรวจสอบชื่อไฟล์และ path ที่นี่ */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 0; /* ให้รูปภาพอยู่ด้านหลังองค์ประกอบอื่น ๆ */
+    transform: rotate(10deg); /* หมุนเล็กน้อยให้ดูมีชีวิตชีวา */
+}
+
+/* Media query เพื่อปรับขนาดรูปแมวบนหน้าจอเล็กกว่า */
+@media (max-width: 400px) {
+    .game-cat-image {
+        width: 150px;
+        height: 150px;
+        right: -30px; /* ปรับให้ยื่นออกไปอีกหน่อย */
+        bottom: -10px;
+    }
 }
