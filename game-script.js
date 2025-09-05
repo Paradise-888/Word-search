@@ -4,7 +4,15 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.add('dark-mode');
     }
 
-    const words = ["JAVASCRIPT", "PYTHON", "HTML", "CSS", "CODE", "SEARCH", "GAME", "WEB"];
+    // ชุดคำศัพท์หลัก
+    const wordSets = [
+        ["JAVASCRIPT", "PYTHON", "HTML", "CSS", "CODE", "SEARCH", "GAME", "WEB"],
+        ["DESIGN", "PROGRAMMING", "PROJECT", "BUILD", "FRONTEND", "BACKEND", "LIBRARY"],
+        ["COMPUTER", "KEYBOARD", "MOUSE", "MONITOR", "HARDWARE", "SOFTWARE"]
+    ];
+
+    let currentWordSetIndex = 0;
+    let words = wordSets[currentWordSetIndex];
     const gridSize = 10;
     const grid = [];
 
@@ -81,6 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // แสดงรายการคำศัพท์
     function showWordList() {
+        wordList.innerHTML = ''; // Clear previous list
         words.forEach(word => {
             const li = document.createElement("li");
             li.textContent = word;
@@ -129,7 +138,8 @@ document.addEventListener('DOMContentLoaded', () => {
         showMessage("Great! Word Found!");
 
         if (foundWords.length === words.length) {
-            showMessage("Congratulations! You found all the words!", "green");
+            showMessage("Congratulations! You found all the words! Starting a new game...");
+            setTimeout(startNewGame, 3000); // เริ่มเกมใหม่หลังจาก 3 วินาที
         }
     }
 
@@ -154,12 +164,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const clickedCell = targetElement;
         
         if (!startCell) {
-            // เริ่มต้นการเลือก
             startCell = clickedCell;
             startCell.classList.add("selected");
             currentSelectedCells.push(startCell);
         } else {
-            // กำลังลากเพื่อเลือก
             const startIndex = grid.indexOf(startCell);
             const endIndex = grid.indexOf(clickedCell);
             
@@ -168,7 +176,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const endRow = Math.floor(endIndex / gridSize);
             const endCol = endIndex % gridSize;
             
-            // ตรวจสอบว่าเป็นแนวตั้งหรือแนวนอน
             if (startRow === endRow || startCol === endCol) {
                 clearSelection();
                 if (startRow === endRow) { // Horizontal
@@ -192,6 +199,27 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // ฟังก์ชันสำหรับรีเซ็ตเกม
+    function resetGame() {
+        grid.forEach(cell => cell.textContent = '');
+        grid.length = 0;
+        currentSelectedCells = [];
+        foundWords = [];
+        gridContainer.innerHTML = '';
+        messageDisplay.textContent = '';
+        wordList.innerHTML = '';
+    }
+
+    // ฟังก์ชันสำหรับเริ่มเกมใหม่
+    function startNewGame() {
+        resetGame();
+        // สลับไปใช้ชุดคำศัพท์ถัดไป
+        currentWordSetIndex = (currentWordSetIndex + 1) % wordSets.length;
+        words = wordSets[currentWordSetIndex];
+        
+        init();
+    }
+
     // เริ่มต้นเกม
     function init() {
         createGrid();
@@ -199,7 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
         fillGrid();
         showWordList();
 
-        // Event listeners สำหรับการควบคุมด้วยเมาส์ (สำหรับคอมพิวเตอร์)
+        // Event listeners
         gridContainer.addEventListener("mousedown", (e) => {
             startCell = e.target;
             startCell.classList.add("selected");
@@ -213,10 +241,8 @@ document.addEventListener('DOMContentLoaded', () => {
             checkWord();
             startCell = null;
         });
-
-        // Event listeners สำหรับการควบคุมด้วยการสัมผัส (สำหรับมือถือ)
         gridContainer.addEventListener("touchstart", (e) => {
-            e.preventDefault(); // ป้องกันการซูมหน้าจอ
+            e.preventDefault();
             startCell = document.elementFromPoint(e.touches[0].clientX, e.touches[0].clientY);
             startCell.classList.add("selected");
             currentSelectedCells.push(startCell);
@@ -232,5 +258,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // เรียกฟังก์ชันเริ่มต้นเกมเมื่อโหลดหน้า
     init();
 });
