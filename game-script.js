@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function createGrid() {
         gridContainer.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
         gridContainer.innerHTML = '';
-        grid.length = 0; // Clear the grid array
+        grid.length = 0;
         for (let i = 0; i < gridSize * gridSize; i++) {
             const cell = document.createElement("div");
             cell.classList.add("grid-cell");
@@ -40,13 +40,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // วางคำลงบนตาราง
     function placeWords() {
-        // Clear all cell contents before placing new words
         grid.forEach(cell => cell.textContent = '');
-
         words.forEach(word => {
             let placed = false;
             while (!placed) {
-                const direction = Math.floor(Math.random() * 2); // 0: horizontal, 1: vertical
+                const direction = Math.floor(Math.random() * 2);
                 const row = Math.floor(Math.random() * gridSize);
                 const col = Math.floor(Math.random() * gridSize);
 
@@ -63,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ตรวจสอบว่าสามารถวางคำได้หรือไม่
     function checkPlacement(word, row, col, direction) {
-        if (direction === 0) { // horizontal
+        if (direction === 0) {
             if (col + word.length > gridSize) return false;
             for (let i = 0; i < word.length; i++) {
                 const index = row * gridSize + col + i;
@@ -71,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     return false;
                 }
             }
-        } else { // vertical
+        } else {
             if (row + word.length > gridSize) return false;
             for (let i = 0; i < word.length; i++) {
                 const index = (row + i) * gridSize + col;
@@ -95,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // แสดงรายการคำศัพท์
     function showWordList() {
-        wordList.innerHTML = ''; // Clear previous list
+        wordList.innerHTML = '';
         words.forEach(word => {
             const li = document.createElement("li");
             li.textContent = word;
@@ -145,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (foundWords.length === words.length) {
             showMessage("Congratulations! You found all the words!", "green");
-            nextButton.style.display = 'block'; // Show the Next button
+            nextButton.style.display = 'block';
         }
     }
 
@@ -153,7 +151,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function showMessage(msg, color = "red") {
         messageDisplay.textContent = msg;
         messageDisplay.style.color = color;
-        // Keep the message visible until the game is reset
         if (msg.includes("Congratulations")) {
             return;
         }
@@ -165,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let targetElement;
         if (event.type.startsWith("mouse")) {
             targetElement = event.target;
-        } else { // Touch event
+        } else {
             targetElement = document.elementFromPoint(event.touches[0].clientX, event.touches[0].clientY);
         }
 
@@ -188,7 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             if (startRow === endRow || startCol === endCol) {
                 clearSelection();
-                if (startRow === endRow) { // Horizontal
+                if (startRow === endRow) {
                     const minCol = Math.min(startCol, endCol);
                     const maxCol = Math.max(startCol, endCol);
                     for (let i = minCol; i <= maxCol; i++) {
@@ -196,7 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         grid[index].classList.add("selected");
                         currentSelectedCells.push(grid[index]);
                     }
-                } else { // Vertical
+                } else {
                     const minRow = Math.min(startRow, endRow);
                     const maxRow = Math.max(startRow, endRow);
                     for (let i = minRow; i <= maxRow; i++) {
@@ -211,12 +208,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ฟังก์ชันสำหรับเริ่มเกมใหม่
     function startNewGame() {
-        nextButton.style.display = 'none'; // Hide the Next button
+        nextButton.style.display = 'none';
         currentSelectedCells = [];
         foundWords = [];
         messageDisplay.textContent = '';
         
-        // สลับไปใช้ชุดคำศัพท์ถัดไป
         currentWordSetIndex = (currentWordSetIndex + 1) % wordSets.length;
         words = wordSets[currentWordSetIndex];
         
@@ -264,6 +260,5 @@ document.addEventListener('DOMContentLoaded', () => {
         startCell = null;
     });
 
-    // เรียกฟังก์ชันเริ่มต้นเกมเมื่อโหลดหน้า
     init();
 });
