@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Craft - Main Menu</title>
+    <link rel="stylesheet" href="main_menu.css">
+</head>
+<body>
+    <div class="menu-container">
+        <div class="header-decoration-top"></div>
+        <div class="title-section">
+            <div class="word-craft-logo">
+                <span class="word">WORD</span>
+                <span class="craft">CRAFT</span>
+                <div class="paw-icon"></div>
+            </div>
+        </div>
+        
+        <div class="buttons-section">
+            <button class="menu-button" id="play-button">PLAY</button>
+            <button class="menu-button" id="setting-button">SETTING</button>
+        </div>
+
+        <div class="cat-image">
+            <img src="cat_lying_down.png" alt="Cute Cat" style="width: 100%; height: auto;">
+        </div>
+        <div class="header-decoration-bottom"></div>
+    </div>
+
+    <script>
+        document.getElementById('play-button').addEventListener('click', function() {
+            window.location.href = 'game.html'; // ลิงก์ไปยังหน้าเกม Word Search
+        });
+        // ในอนาคตคุณสามารถเพิ่มฟังก์ชันสำหรับปุ่ม Setting ได้ที่นี่
+        document.getElementById('setting-button').addEventListener('click', function() {
+            alert('Setting functionality coming soon!'); // หรือลิงก์ไปยังหน้า setting
+        });
+    </script>
+</body>
+</html>
