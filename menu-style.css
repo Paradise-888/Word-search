@@ -5,29 +5,25 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #F8E9C7; /* สีพื้นหลังอ่อนๆ ที่เข้ากับรูปภาพ */
+    background-color: #F8E9C7;
     overflow: hidden;
 }
 
 .main-menu-container {
     width: 100%;
-    max-width: 450px; /* จำกัดความกว้างสูงสุดให้เหมือนหน้าจอมือถือ */
+    max-width: 450px;
     height: 100vh;
     position: relative;
-    
-    /* นี่คือส่วนสำคัญ: กำหนดรูปภาพที่คุณให้มาเป็นพื้นหลัง */
-    background-image: url('main_menu_bg.png'); /* <--- ***ตรวจสอบชื่อไฟล์รูปภาพของคุณที่นี่*** */
-    background-size: cover; /* ครอบคลุมพื้นที่ทั้งหมด */
+    background-image: url('wc.png');
+    background-size: cover;
     background-repeat: no-repeat;
-    background-position: center; /* จัดกึ่งกลางรูปภาพ */
-
+    background-position: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* เปลี่ยน justify-content เพื่อจัดตำแหน่งปุ่ม */
-    justify-content: flex-end; /* เลื่อนปุ่มไปด้านล่าง */
-    padding-bottom: 25vh; /* เพิ่ม padding ด้านล่าง เพื่อเว้นที่สำหรับปุ่ม */
-    box-sizing: border-box; /* ให้ padding อยู่ในความสูง */
+    justify-content: flex-end;
+    padding-bottom: 25vh;
+    box-sizing: border-box;
 }
 
 .button-section {
@@ -36,30 +32,27 @@ body {
     gap: 20px;
     position: relative;
     z-index: 2;
-    /* ไม่ต้องใช้ margin-top แล้ว เพราะใช้ justify-content และ padding-bottom จัดตำแหน่ง */
     width: 100%;
     align-items: center;
 }
 
 .menu-button {
-    background-color: #6C7A89; /* สีเทาเข้มของปุ่ม */
+    background-color: #6C7A89;
     color: white;
     font-size: 1.8rem;
     font-weight: bold;
     padding: 15px 50px;
     border: none;
     border-radius: 15px;
-    box-shadow: 0 5px 0px #4a545e; /* เงาของปุ่ม */
+    box-shadow: 0 5px 0px #4a545e;
     cursor: pointer;
     transition: all 0.2s ease;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-    max-width: 250px; /* จำกัดความกว้างสูงสุดของปุ่ม */
-    width: 80%; /* ความกว้างของปุ่ม (ยืดหดได้) */
+    max-width: 250px;
+    width: 80%;
 }
 
 .menu-button:active {
     transform: translateY(3px);
     box-shadow: 0 2px 0px #4a545e;
 }
-
-/* ไม่มีโค้ดสำหรับ header-design, footer-design, logo-section, cat-image แล้ว */
