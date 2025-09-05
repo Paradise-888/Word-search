@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function createGrid() {
         gridContainer.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
         gridContainer.innerHTML = '';
-        grid.length = 0;
+        grid.length = 0; // Clear the grid array
         for (let i = 0; i < gridSize * gridSize; i++) {
             const cell = document.createElement("div");
             cell.classList.add("grid-cell");
@@ -40,6 +40,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // วางคำลงบนตาราง
     function placeWords() {
+        // Clear all cell contents before placing new words
+        grid.forEach(cell => cell.textContent = '');
+
         words.forEach(word => {
             let placed = false;
             while (!placed) {
@@ -211,10 +214,8 @@ document.addEventListener('DOMContentLoaded', () => {
         nextButton.style.display = 'none'; // Hide the Next button
         currentSelectedCells = [];
         foundWords = [];
-        gridContainer.innerHTML = '';
         messageDisplay.textContent = '';
-        wordList.innerHTML = '';
-
+        
         // สลับไปใช้ชุดคำศัพท์ถัดไป
         currentWordSetIndex = (currentWordSetIndex + 1) % wordSets.length;
         words = wordSets[currentWordSetIndex];
