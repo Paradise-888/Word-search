@@ -82,50 +82,6 @@ function showWordList() {
     });
 }
 
-// จัดการการเลือกตัวอักษร
-function handleSelection(event) {
-    const clickedCell = event.target;
-    if (!clickedCell.classList.contains("grid-cell")) return;
-
-    if (!startCell) {
-        // เริ่มต้นการเลือก
-        startCell = clickedCell;
-        startCell.classList.add("selected");
-        currentSelectedCells.push(startCell);
-    } else {
-        // กำลังลากเพื่อเลือก
-        const startIndex = grid.indexOf(startCell);
-        const endIndex = grid.indexOf(clickedCell);
-        
-        const startRow = Math.floor(startIndex / gridSize);
-        const startCol = startIndex % gridSize;
-        const endRow = Math.floor(endIndex / gridSize);
-        const endCol = endIndex % gridSize;
-        
-        // ตรวจสอบว่าเป็นแนวตั้งหรือแนวนอน
-        if (startRow === endRow || startCol === endCol) {
-            clearSelection();
-            if (startRow === endRow) { // Horizontal
-                const minCol = Math.min(startCol, endCol);
-                const maxCol = Math.max(startCol, endCol);
-                for (let i = minCol; i <= maxCol; i++) {
-                    const index = startRow * gridSize + i;
-                    grid[index].classList.add("selected");
-                    currentSelectedCells.push(grid[index]);
-                }
-            } else { // Vertical
-                const minRow = Math.min(startRow, endRow);
-                const maxRow = Math.max(startRow, endRow);
-                for (let i = minRow; i <= maxRow; i++) {
-                    const index = i * gridSize + startCol;
-                    grid[index].classList.add("selected");
-                    currentSelectedCells.push(grid[index]);
-                }
-            }
-        }
-    }
-}
-
 // ล้างการเลือก
 function clearSelection() {
     currentSelectedCells.forEach(cell => cell.classList.remove("selected"));
@@ -178,6 +134,58 @@ function showMessage(msg, color = "red") {
     setTimeout(() => messageDisplay.textContent = "", 2000);
 }
 
+// จัดการการเลือกตัวอักษรด้วยเมาส์และนิ้ว
+function handleSelection(event) {
+    let targetElement;
+    if (event.type.startsWith("mouse")) {
+        targetElement = event.target;
+    } else { // Touch event
+        targetElement = document.elementFromPoint(event.touches[0].clientX, event.touches[0].clientY);
+    }
+
+    if (!targetElement || !targetElement.classList.contains("grid-cell")) return;
+    
+    const clickedCell = targetElement;
+    
+    if (!startCell) {
+        // เริ่มต้นการเลือก
+        startCell = clickedCell;
+        startCell.classList.add("selected");
+        currentSelectedCells.push(startCell);
+    } else {
+        // กำลังลากเพื่อเลือก
+        const startIndex = grid.indexOf(startCell);
+        const endIndex = grid.indexOf(clickedCell);
+        
+        const startRow = Math.floor(startIndex / gridSize);
+        const startCol = startIndex % gridSize;
+        const endRow = Math.floor(endIndex / gridSize);
+        const endCol = endIndex % gridSize;
+        
+        // ตรวจสอบว่าเป็นแนวตั้งหรือแนวนอน
+        if (startRow === endRow || startCol === endCol) {
+            clearSelection();
+            if (startRow === endRow) { // Horizontal
+                const minCol = Math.min(startCol, endCol);
+                const maxCol = Math.max(startCol, endCol);
+                for (let i = minCol; i <= maxCol; i++) {
+                    const index = startRow * gridSize + i;
+                    grid[index].classList.add("selected");
+                    currentSelectedCells.push(grid[index]);
+                }
+            } else { // Vertical
+                const minRow = Math.min(startRow, endRow);
+                const maxRow = Math.max(startRow, endRow);
+                for (let i = minRow; i <= maxRow; i++) {
+                    const index = i * gridSize + startCol;
+                    grid[index].classList.add("selected");
+                    currentSelectedCells.push(grid[index]);
+                }
+            }
+        }
+    }
+}
+
 // เริ่มต้นเกม
 function init() {
     createGrid();
@@ -185,18 +193,34 @@ function init() {
     fillGrid();
     showWordList();
 
+    // Event listeners สำหรับการควบคุมด้วยเมาส์ (สำหรับคอมพิวเตอร์)
     gridContainer.addEventListener("mousedown", (e) => {
         startCell = e.target;
         startCell.classList.add("selected");
         currentSelectedCells.push(startCell);
     });
-
     gridContainer.addEventListener("mousemove", (e) => {
         if (!startCell) return;
         handleSelection(e);
     });
-
     gridContainer.addEventListener("mouseup", () => {
+        checkWord();
+        startCell = null;
+    });
+
+    // Event listeners สำหรับการควบคุมด้วยการสัมผัส (สำหรับมือถือ)
+    gridContainer.addEventListener("touchstart", (e) => {
+        e.preventDefault(); // ป้องกันการซูมหน้าจอ
+        startCell = document.elementFromPoint(e.touches[0].clientX, e.touches[0].clientY);
+        startCell.classList.add("selected");
+        currentSelectedCells.push(startCell);
+    });
+    gridContainer.addEventListener("touchmove", (e) => {
+        e.preventDefault();
+        if (!startCell) return;
+        handleSelection(e);
+    });
+    gridContainer.addEventListener("touchend", () => {
         checkWord();
         startCell = null;
     });
