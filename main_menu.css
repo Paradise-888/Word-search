@@ -1,28 +1,28 @@
 body {
     margin: 0;
-    font-family: 'Arial', sans-serif; /* สามารถเปลี่ยนฟอนต์ได้ */
+    font-family: 'Arial', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #F8E9C7; /* สีพื้นหลังตามภาพ */
-    overflow: hidden; /* ซ่อนส่วนเกิน */
+    background-color: #F8E9C7;
+    overflow: hidden;
 }
 
 .main-menu-container {
     width: 100%;
-    max-width: 450px; /* จำกัดความกว้างคล้ายหน้าจอมือถือ */
+    max-width: 450px;
     height: 100vh;
-    max-height: 800px; /* จำกัดความสูงคล้ายหน้าจอมือถือ */
+    max-height: 800px;
     position: relative;
     background-color: #F8E9C7;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between; /* กระจายองค์ประกอบ */
-    padding-top: 10vh; /* เพื่อเว้นพื้นที่ด้านบน */
-    padding-bottom: 10vh; /* เพื่อเว้นพื้นที่ด้านล่าง */
+    justify-content: space-between;
+    padding-top: 10vh;
+    padding-bottom: 10vh;
     box-sizing: border-box;
 }
 
@@ -32,25 +32,12 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    height: 25%; /* กำหนดความสูงตามภาพ */
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,20 Q80,40 50,20 Q20,0 0,20 Z" fill="%23F7D59A"/></svg>'); /* ลวดลายสีส้มอ่อน */
+    height: 25%;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,20 Q80,40 50,20 Q20,0 0,20 Z" fill="%23F7D59A"/></svg>');
     background-size: cover;
     background-repeat: no-repeat;
-    z-index: 1; /* ให้ทับส่วนอื่น */
+    z-index: 1;
 }
-/* ลวดลายจุดๆ ด้านบน (ถ้าอยากให้มี) */
-.header-design::after {
-    content: '';
-    position: absolute;
-    top: 5px; /* ปรับตำแหน่งจุด */
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" width="10" height="10"><circle cx="5" cy="5" r="2" fill="%23F7D59A"/></svg>'); /* จุดสีส้มอ่อน */
-    background-size: 15px 15px; /* ขนาดของจุด */
-    opacity: 0.5; /* ความทึบ */
-}
-
 
 /* ลวดลายด้านล่าง */
 .footer-design {
@@ -58,8 +45,8 @@ body {
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 20%; /* กำหนดความสูงตามภาพ */
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,100 L100,100 L100,80 Q80,60 50,80 Q20,100 0,80 Z" fill="%23F7D59A"/></svg>'); /* ลวดลายสีส้มอ่อน */
+    height: 20%;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,100 L100,100 L100,80 Q80,60 50,80 Q20,100 0,80 Z" fill="%23F7D59A"/></svg>');
     background-size: cover;
     background-repeat: no-repeat;
     z-index: 1;
@@ -67,42 +54,42 @@ body {
 
 .logo-section {
     display: flex;
-    flex-direction: column; /* WORD และ CRAFT อยู่คนละบรรทัด */
+    flex-direction: column;
     align-items: center;
     position: relative;
-    z-index: 2; /* ให้โลโก้อยู่ด้านหน้า */
-    margin-top: -5vh; /* ดึงขึ้นไปด้านบนเล็กน้อย */
+    z-index: 2;
+    margin-top: -5vh;
 }
 
 .game-title {
-    font-size: 4rem; /* ขนาดตัวอักษรใหญ่ */
+    font-size: 4rem;
     font-weight: bold;
     margin: 0;
-    line-height: 0.8; /* ระยะห่างระหว่างบรรทัด */
-    color: #E74C3C; /* สีแดงสำหรับ "WORD" */
+    line-height: 0.8;
+    color: #E74C3C;
     text-shadow: 
         -2px -2px 0 #FFF,  
          2px -2px 0 #FFF,
         -2px  2px 0 #FFF,
-         2px  2px 0 #FFF; /* ขอบขาว */
+         2px  2px 0 #FFF;
 }
 
 .logo-section .game-title:last-of-type {
-    color: #E74C3C; /* สีแดงสำหรับ "CRAFT" */
-    margin-top: 10px; /* ระยะห่างจากไอคอน */
+    color: #E74C3C;
+    margin-top: 10px;
 }
 
 .logo-icon {
     width: 80px;
     height: 80px;
-    background-color: #F0F0F0; /* สีพื้นหลังไอคอน */
+    background-color: #F0F0F0;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     box-shadow: 0 5px 10px rgba(0,0,0,0.3);
-    border: 5px solid #FFF; /* ขอบขาว */
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M50 20 L40 40 L60 40 Z M50 20 A 20 20 0 0 1 70 40 L70 60 A 20 20 0 0 1 50 80 A 20 20 0 0 1 30 60 L30 40 A 20 20 0 0 1 50 20 Z" fill="%238B4513" /><path d="M40 50 A 5 5 0 0 1 45 55 A 5 5 0 0 1 40 60 A 5 5 0 0 1 35 55 A 5 5 0 0 1 40 50 Z" fill="%23FFF" /><path d="M60 50 A 5 5 0 0 1 65 55 A 5 5 0 0 1 60 60 A 5 5 0 0 1 55 55 A 5 5 0 0 1 60 50 Z" fill="%23FFF" /></svg>'); /* รอยเท้าแมว (สีน้ำตาลเข้ม) */
+    border: 5px solid #FFF;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M50 20 L40 40 L60 40 Z M50 20 A 20 20 0 0 1 70 40 L70 60 A 20 20 0 0 1 50 80 A 20 20 0 0 1 30 60 L30 40 A 20 20 0 0 1 50 20 Z" fill="%238B4513" /><path d="M40 50 A 5 5 0 0 1 45 55 A 5 5 0 0 1 40 60 A 5 5 0 0 1 35 55 A 5 5 0 0 1 40 50 Z" fill="%23FFF" /><path d="M60 50 A 5 5 0 0 1 65 55 A 5 5 0 0 1 60 60 A 5 5 0 0 1 55 55 A 5 5 0 0 1 60 50 Z" fill="%23FFF" /></svg>');
     background-size: 70%;
     background-repeat: no-repeat;
     background-position: center;
@@ -113,7 +100,7 @@ body {
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background-color: #8B4513; /* พื้นหลังอุ้งเท้าสีน้ำตาลเข้ม */
+    background-color: #8B4513;
     z-index: -1;
 }
 
@@ -127,38 +114,37 @@ body {
 }
 
 .menu-button {
-    background-color: #6C7A89; /* สีปุ่ม */
+    background-color: #6C7A89;
     color: white;
     font-size: 1.8rem;
     font-weight: bold;
     padding: 15px 50px;
     border: none;
     border-radius: 15px;
-    box-shadow: 0 5px 0px #4a545e; /* เงาปุ่มด้านล่าง */
+    box-shadow: 0 5px 0px #4a545e;
     cursor: pointer;
     transition: all 0.2s ease;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
 }
 
 .menu-button:active {
-    transform: translateY(3px); /* กดแล้วยุบลงเล็กน้อย */
+    transform: translateY(3px);
     box-shadow: 0 2px 0px #4a545e;
 }
 
 .cat-image {
     position: absolute;
-    bottom: 5vh; /* ปรับตำแหน่งแมวให้อยู่ด้านบนของ footer-design เล็กน้อย */
-    width: 90%; /* ขนาดแมว */
-    max-width: 400px; /* จำกัดขนาดสูงสุด */
-    height: 40%; /* กำหนดความสูงตามภาพ */
-    background-image: url('Play.png'); /* <--- เปลี่ยน URL นี้เป็นรูปแมวของคุณ */
+    bottom: 5vh;
+    width: 90%;
+    max-width: 400px;
+    height: 40%;
+    background-image: url('Play.png'); /* <--- ตรวจสอบชื่อไฟล์รูปภาพที่นี่ */
     background-size: contain;
     background-repeat: no-repeat;
-    background-position: center bottom; /* จัดตำแหน่งแมวให้อยู่ด้านล่าง */
-    z-index: 0; /* ให้แมวอยู่ด้านหลังองค์ประกอบอื่น แต่ทับ footer-design */
+    background-position: center bottom;
+    z-index: 0;
 }
 
-/* ปรับขนาดตัวอักษรและปุ่มสำหรับหน้าจอที่เล็กกว่า */
 @media (max-width: 380px) {
     .game-title {
         font-size: 3.5rem;

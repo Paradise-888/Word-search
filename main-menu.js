@@ -4,15 +4,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (playButton) {
         playButton.addEventListener('click', () => {
-            alert('Play button clicked!'); // หรือเปลี่ยนไปหน้าเกมจริง
-            // window.location.href = 'game.html'; // ตัวอย่าง: เปลี่ยนไปหน้าเกม
+            window.location.href = 'game.html'; // ลิงก์ไปที่หน้าเกม
         });
     }
 
     if (settingButton) {
         settingButton.addEventListener('click', () => {
-            alert('Setting button clicked!'); // หรือเปิดหน้าตั้งค่า
-            // window.location.href = 'settings.html'; // ตัวอย่าง: เปลี่ยนไปหน้าตั้งค่า
+            alert('Setting button clicked!'); // สามารถเปลี่ยนเป็นหน้าตั้งค่าได้ในอนาคต
         });
     }
 });
