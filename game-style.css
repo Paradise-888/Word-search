@@ -149,7 +149,6 @@ h2 {
     }
 }
 
-/* ---- Dark Mode Styles ---- */
 body.dark-mode {
     background-color: #1a1a1a;
     color: #e0e0e0;
@@ -205,7 +204,6 @@ body.dark-mode #message {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
 }
 
-/* สไตล์สำหรับปุ่ม Next */
 .next-button {
     margin-top: 1rem;
     padding: 10px 20px;

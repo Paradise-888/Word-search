@@ -27,7 +27,7 @@ body {
 
 .back-button {
     position: absolute;
-    top: 50px;
+    bottom: 50px;
     left: 20px;
 }
 
@@ -45,14 +45,14 @@ body {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    padding-top: 100px; /* Adjust as needed */
+    padding-top: 100px;
 }
 
 .category-button {
     background: transparent;
     border: none;
     cursor: pointer;
-    width: 250px; /* Adjust size based on your buttons */
+    width: 250px;
     height: 60px;
     text-indent: -9999px;
     outline: none;

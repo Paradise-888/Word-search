@@ -4,15 +4,13 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.add('dark-mode');
     }
 
-    // ชุดคำศัพท์หลัก
     const wordSets = {
         animal: ["LION", "TIGER", "BEAR", "ELEPHANT", "ZEBRA", "PANDA", "MONKEY"],
         career: ["DOCTOR", "TEACHER", "CHEF", "ENGINEER", "ARTIST", "POLICE", "PILOT"]
     };
 
-    // ดึงค่า category จาก URL
     const urlParams = new URLSearchParams(window.location.search);
-    const selectedCategory = urlParams.get('category') || 'animal'; // ค่าเริ่มต้นคือ animal
+    const selectedCategory = urlParams.get('category') || 'animal';
 
     let words = wordSets[selectedCategory.toLowerCase()];
     const gridSize = 10;
@@ -27,7 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const messageDisplay = document.getElementById("message");
     const nextButton = document.getElementById("next-button");
 
-    // สร้างตารางตัวอักษร
     function createGrid() {
         gridContainer.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
         gridContainer.innerHTML = '';
@@ -40,7 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // วางคำลงบนตาราง
     function placeWords() {
         grid.forEach(cell => cell.textContent = '');
         words.forEach(word => {
@@ -61,7 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ตรวจสอบว่าสามารถวางคำได้หรือไม่
     function checkPlacement(word, row, col, direction) {
         if (direction === 0) {
             if (col + word.length > gridSize) return false;
@@ -83,7 +78,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return true;
     }
 
-    // เติมตัวอักษรที่เหลือ
     function fillGrid() {
         const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         for (let i = 0; i < grid.length; i++) {
@@ -93,7 +87,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // แสดงรายการคำศัพท์
     function showWordList() {
         wordList.innerHTML = '';
         words.forEach(word => {
@@ -103,13 +96,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ล้างการเลือก
     function clearSelection() {
         currentSelectedCells.forEach(cell => cell.classList.remove("selected"));
         currentSelectedCells = [];
     }
 
-    // ตรวจสอบคำที่เลือก
     function checkWord() {
         if (currentSelectedCells.length === 0) return;
         
@@ -129,7 +120,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // เมื่อพบคำ
     function foundWord(word) {
         foundWords.push(word);
         currentSelectedCells.forEach(cell => cell.classList.add("found"));
@@ -149,7 +139,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // แสดงข้อความ
     function showMessage(msg, color = "red") {
         messageDisplay.textContent = msg;
         messageDisplay.style.color = color;
@@ -159,7 +148,6 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => messageDisplay.textContent = "", 2000);
     }
 
-    // จัดการการเลือกตัวอักษรด้วยเมาส์และนิ้ว
     function handleSelection(event) {
         let targetElement;
         if (event.type.startsWith("mouse")) {
@@ -208,7 +196,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // ฟังก์ชันสำหรับเริ่มเกมใหม่
     function startNewGame() {
         nextButton.style.display = 'none';
         currentSelectedCells = [];
@@ -218,7 +205,6 @@ document.addEventListener('DOMContentLoaded', () => {
         init();
     }
 
-    // เริ่มต้นเกม
     function init() {
         createGrid();
         placeWords();
@@ -226,10 +212,8 @@ document.addEventListener('DOMContentLoaded', () => {
         showWordList();
     }
 
-    // Event listener สำหรับปุ่ม Next
     nextButton.addEventListener('click', startNewGame);
 
-    // Event listeners สำหรับการควบคุมด้วยเมาส์และนิ้ว
     gridContainer.addEventListener("mousedown", (e) => {
         startCell = e.target;
         startCell.classList.add("selected");

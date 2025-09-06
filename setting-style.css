@@ -22,9 +22,8 @@ body {
 }
 
 .back-button {
-    /* กำหนดให้ปุ่มอยู่ด้านล่างซ้าย */
     position: absolute;
-    bottom: 50px; 
+    bottom: 50px;
     left: 20px;
 }
 
