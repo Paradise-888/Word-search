@@ -10,14 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (settingButton) {
         settingButton.addEventListener('click', () => {
-            const isDarkMode = localStorage.getItem('darkMode') === 'true';
-            localStorage.setItem('darkMode', !isDarkMode);
-            
-            if (!isDarkMode) {
-                alert('Dark Mode is now ON. Enjoy playing in low light!');
-            } else {
-                alert('Dark Mode is now OFF. Back to the light theme!');
-            }
+            // ลิงก์ไปยังหน้า setting.html แทนการเปลี่ยนโหมดทันที
+            window.location.href = 'setting.html';
         });
     }
 });
