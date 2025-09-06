@@ -8,7 +8,7 @@ body {
     background-color: #F8E9C7;
     color: #333;
     position: relative;
-    /* อ้างอิงรูปภาพ setting.png เป็นพื้นหลังหลัก */
+    /* กำหนดรูป setting.png เป็นพื้นหลังของ body */
     background-image: url('image/setting.png'); 
     background-size: cover;
     background-repeat: no-repeat;
@@ -24,19 +24,19 @@ body {
 
 .back-button {
     position: absolute;
-    top: 50px; /* ปรับตำแหน่งปุ่มตามรูป */
+    top: 50px; 
     left: 20px;
 }
 
 .back-arrow-image {
-    width: 60px; /* ขนาดของปุ่มย้อนกลับ */
+    width: 60px; 
     height: auto;
     cursor: pointer;
 }
 
 .theme-options {
     position: absolute;
-    bottom: 20%; /* ปรับตำแหน่งปุ่มวงกลมตามรูป */
+    bottom: 20%;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
