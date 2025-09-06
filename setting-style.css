@@ -1,14 +1,84 @@
-/* เพิ่มสไตล์นี้ในไฟล์ setting-style.css */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #F8E9C7;
+    color: #333;
+    text-align: center;
+    position: relative;
+    background-image: url('image/seeting.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.setting-container {
+    width: 100%;
+    max-width: 450px;
+    height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding-bottom: 25vh;
+    box-sizing: border-box;
+}
+
 .back-button {
     position: absolute;
-    top: 20px;
+    top: 50px;
     left: 20px;
-    background: none;
+    width: 60px; /* ปรับขนาดปุ่ม */
+    height: 60px;
+    background-color: transparent;
     border: none;
     cursor: pointer;
 }
 
-.back-arrow-image {
-    width: 50px; /* ปรับขนาดตามต้องการ */
+.back-button a {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.back-button img {
+    width: 100%;
     height: auto;
+    /* ในรูป seeting.png มีลูกศรอยู่ด้วย คุณต้องตัดภาพเฉพาะส่วนลูกศรมาใช้ หรือใช้ CSS position เพื่อเลือกแสดงเฉพาะบางส่วน */
+    /* เนื่องจากคุณต้องการใช้แค่ลูกศร อาจต้องแก้ไขรูปภาพต้นฉบับให้เหลือแค่ลูกศร */
+}
+
+.theme-options {
+    position: absolute;
+    bottom: 20%; /* ปรับตำแหน่งปุ่มเลือกธีม */
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.theme-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 3px solid transparent;
+    transition: border-color 0.2s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.theme-circle:hover {
+    border-color: #E74C3C;
+}
+
+.theme-circle.light-mode {
+    background-color: #ffffff;
+}
+
+.theme-circle.dark-mode {
+    background-color: #1a1a1a;
 }
