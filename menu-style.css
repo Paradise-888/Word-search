@@ -14,7 +14,7 @@ body {
     max-width: 450px;
     height: 100vh;
     position: relative;
-    background-image: url('wc.png');
+    background-image: url('image/wc.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -70,7 +70,7 @@ body {
 }
 
 .setting-image-button img {
-    width: 150px; /* ปรับขนาดให้เหมาะสม */
+    width: 150px;
     height: auto;
     display: block;
 }

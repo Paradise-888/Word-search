@@ -8,7 +8,6 @@ body {
     background-color: #F8E9C7;
     color: #333;
     position: relative;
-    /* ตั้งค่ารูป setting.png เป็นพื้นหลังหลัก */
     background-image: url('image/setting.png'); 
     background-size: cover;
     background-repeat: no-repeat;
@@ -24,12 +23,12 @@ body {
 
 .back-button {
     position: absolute;
-    top: 50px; 
+    top: 50px;
     left: 20px;
 }
 
 .back-arrow-image {
-    width: 60px; 
+    width: 60px;
     height: auto;
     cursor: pointer;
 }

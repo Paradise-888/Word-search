@@ -123,7 +123,7 @@ h2 {
     background-color: #FFF;
     padding: 10px;
     border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .game-cat-image {
@@ -132,7 +132,7 @@ h2 {
     right: -20px;
     width: 200px;
     height: 200px;
-    background-image: url('image/cat1.png');
+    background-image: url('image/cat1.jpg');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center bottom;
