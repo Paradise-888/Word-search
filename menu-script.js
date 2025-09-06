@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (settingButton) {
         settingButton.addEventListener('click', () => {
-            // ลิงก์ไปยังหน้า setting.html แทนการเปลี่ยนโหมดทันที
             window.location.href = 'setting.html';
         });
     }
