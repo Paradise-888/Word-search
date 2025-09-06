@@ -4,7 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (playButton) {
         playButton.addEventListener('click', () => {
-            window.location.href = 'game.html';
+            // เปลี่ยนเส้นทางจาก game.html เป็น category.html
+            window.location.href = 'category.html';
         });
     }
 

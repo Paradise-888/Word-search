@@ -5,14 +5,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ชุดคำศัพท์หลัก
-    const wordSets = [
-        ["JAVASCRIPT", "PYTHON", "HTML", "CSS", "CODE", "SEARCH", "GAME", "WEB"],
-        ["LION", "TIGER", "BEAR", "ELEPHANT", "ZEBRA", "PANDA", "MONKEY"],
-        ["PARIS", "TOKYO", "LONDON", "ROME", "CAIRO", "SYDNEY", "BANGKOK"]
-    ];
+    const wordSets = {
+        animal: ["LION", "TIGER", "BEAR", "ELEPHANT", "ZEBRA", "PANDA", "MONKEY"],
+        career: ["DOCTOR", "TEACHER", "CHEF", "ENGINEER", "ARTIST", "POLICE", "PILOT"]
+    };
 
-    let currentWordSetIndex = 0;
-    let words = wordSets[currentWordSetIndex];
+    // ดึงค่า category จาก URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const selectedCategory = urlParams.get('category') || 'animal'; // ค่าเริ่มต้นคือ animal
+
+    let words = wordSets[selectedCategory.toLowerCase()];
     const gridSize = 10;
     const grid = [];
 
@@ -212,9 +214,6 @@ document.addEventListener('DOMContentLoaded', () => {
         currentSelectedCells = [];
         foundWords = [];
         messageDisplay.textContent = '';
-        
-        currentWordSetIndex = (currentWordSetIndex + 1) % wordSets.length;
-        words = wordSets[currentWordSetIndex];
         
         init();
     }
