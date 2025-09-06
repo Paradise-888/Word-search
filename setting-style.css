@@ -8,7 +8,8 @@ body {
     background-color: #F8E9C7;
     color: #333;
     position: relative;
-    background-image: url('image/setting.png'); /* เปลี่ยนชื่อไฟล์เป็น setting.png */
+    /* อ้างอิงรูปภาพ setting.png เป็นพื้นหลังหลัก */
+    background-image: url('image/setting.png'); 
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -21,21 +22,21 @@ body {
     position: relative;
 }
 
-.back-button-container {
+.back-button {
     position: absolute;
-    top: 50px;
+    top: 50px; /* ปรับตำแหน่งปุ่มตามรูป */
     left: 20px;
 }
 
 .back-arrow-image {
-    width: 60px;
+    width: 60px; /* ขนาดของปุ่มย้อนกลับ */
     height: auto;
     cursor: pointer;
 }
 
 .theme-options {
     position: absolute;
-    bottom: 20%;
+    bottom: 20%; /* ปรับตำแหน่งปุ่มวงกลมตามรูป */
     left: 50%;
     transform: translateX(-50%);
     display: flex;
