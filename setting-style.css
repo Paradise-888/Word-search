@@ -7,9 +7,8 @@ body {
     min-height: 100vh;
     background-color: #F8E9C7;
     color: #333;
-    text-align: center;
     position: relative;
-    background-image: url('image/seeting.png');
+    background-image: url('image/setting.png'); /* เปลี่ยนชื่อไฟล์เป็น setting.png */
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -20,45 +19,27 @@ body {
     max-width: 450px;
     height: 100vh;
     position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-    padding-bottom: 25vh;
-    box-sizing: border-box;
 }
 
-.back-button {
+.back-button-container {
     position: absolute;
     top: 50px;
     left: 20px;
-    width: 60px; /* ปรับขนาดปุ่ม */
-    height: 60px;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
 }
 
-.back-button a {
-    display: block;
-    width: 100%;
-    height: 100%;
-}
-
-.back-button img {
-    width: 100%;
+.back-arrow-image {
+    width: 60px;
     height: auto;
-    /* ในรูป seeting.png มีลูกศรอยู่ด้วย คุณต้องตัดภาพเฉพาะส่วนลูกศรมาใช้ หรือใช้ CSS position เพื่อเลือกแสดงเฉพาะบางส่วน */
-    /* เนื่องจากคุณต้องการใช้แค่ลูกศร อาจต้องแก้ไขรูปภาพต้นฉบับให้เหลือแค่ลูกศร */
+    cursor: pointer;
 }
 
 .theme-options {
     position: absolute;
-    bottom: 20%; /* ปรับตำแหน่งปุ่มเลือกธีม */
+    bottom: 20%;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     gap: 20px;
-    justify-content: center;
-    align-items: center;
 }
 
 .theme-circle {
