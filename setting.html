@@ -3,19 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Settings</title>
-    <link rel="stylesheet" href="setting-style.css">
+    <title>Word Craft - Settings</title>
+    <link rel="stylesheet" href="menu-style.css">
+    <style>
+        .settings-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+    </style>
 </head>
 <body>
-    <div class="setting-container">
-        <a href="index.html" class="back-button">
-            <img src="image/back-arrow.png" alt="Back" class="back-arrow-image">
-        </a>
-        <div class="theme-options">
-            <div id="light-mode-button" class="theme-circle light-mode"></div>
-            <div id="dark-mode-button" class="theme-circle dark-mode"></div>
-        </div>
+    <div class="settings-container">
+        <img src="image/setting.png" alt="Settings Icon">
+        
+        <p>นี่คือหน้าจอสำหรับการตั้งค่า</p>
+        
+        <a href="index.html" class="menu-button" id="back-button">Back</a>
     </div>
-    <script src="setting-script.js"></script>
 </body>
 </html>
