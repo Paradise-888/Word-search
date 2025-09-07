@@ -81,6 +81,11 @@
             } else {
                 document.body.className = 'light-mode';
             }
+
+            // Call the functions to create and populate the game grid
+            createGrid();
+            placeWords();
+            displayWordList();
         });
 
         const wordList = ['TEACHER', 'DOCTOR', 'ARTIST', 'NURSE', 'ENGINEER'];
@@ -251,10 +256,6 @@
                 currentCells.forEach(cell => cell.classList.add('highlighted'));
             }
         });
-
-        createGrid();
-        placeWords();
-        displayWordList();
     </script>
 </body>
 </html>
