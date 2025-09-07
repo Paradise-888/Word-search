@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // โค้ดสำหรับ Dark Mode: ตรวจสอบสถานะและเปลี่ยนธีมทันทีที่หน้าโหลด
     if (localStorage.getItem('darkMode') === 'true') {
         document.body.classList.add('dark-mode');
     }
