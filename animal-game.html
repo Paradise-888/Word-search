@@ -33,6 +33,16 @@
             text-align: center;
             margin-top: 20px;
         }
+        
+        /* สไตล์สำหรับปุ่มย้อนกลับที่มุมซ้ายล่าง */
+        .back-button {
+            position: fixed; /* ทำให้ปุ่มอยู่ที่ตำแหน่งเดิมเสมอ แม้จะเลื่อนหน้าจอ */
+            bottom: 20px; /* เว้นระยะห่างจากขอบล่าง 20px */
+            left: 20px; /* เว้นระยะห่างจากขอบซ้าย 20px */
+            width: auto; /* กำหนดความกว้างอัตโนมัติ */
+            padding: 10px 20px; /* เพิ่มระยะห่างภายในปุ่ม */
+            font-size: 1.2rem;
+        }
     </style>
 </head>
 <body>
@@ -45,12 +55,11 @@
         <p id="message"></p>
 
         <input type="text" id="guess-input" maxlength="1" autofocus>
-        
-        <a href="category.html" class="menu-button">Back</a>
     </div>
+    
+    <a href="category.html" class="menu-button back-button">Back</a>
 
     <script>
-        // โค้ดเกม
         const wordList = [
             'tiger', 'lion', 'elephant', 'monkey', 'zebra',
             'giraffe', 'bear', 'dolphin', 'shark', 'penguin'
@@ -123,7 +132,6 @@
             }
         });
 
-        // เริ่มเกมครั้งแรก
         startGame();
     </script>
 </body>
