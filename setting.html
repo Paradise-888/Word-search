@@ -5,50 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Word Craft - Settings</title>
     <link rel="stylesheet" href="menu-style.css">
-    <style>
-        .settings-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-        }
-        .color-buttons {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-        .color-button {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-            border: 2px solid transparent;
-            box-shadow: 0 4px #888;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .color-button:hover {
-            transform: scale(1.1);
-        }
-        .color-button.active {
-            border-color: #000;
-            box-shadow: 0 0 0 4px #000;
-        }
-        
-        /* The following styles are now in menu-style.css */
-    </style>
 </head>
 <body>
     <div class="settings-container">
-        <h1>Settings</h1>
+        <h1>SETTINGS</h1>
         <img src="image/setting.png" alt="Settings Icon">
         
         <h3>Choose your theme color:</h3>
         <div class="color-buttons">
-            <div class="color-button" style="background-color: #87ceeb;" data-color="#87ceeb"></div> <div class="color-button" style="background-color: #ffa500;" data-color="#ffa500"></div> <div class="color-button" style="background-color: #f08080;" data-color="#f08080"></div> </div>
-
-        <a href="index.html" class="menu-button back-button">Back</a>
+            <div class="color-button" style="background-color: #87ceeb;" data-color="#87ceeb"></div>
+            <div class="color-button" style="background-color: #ffa500;" data-color="#ffa500"></div>
+            <div class="color-button" style="background-color: #f08080;" data-color="#f08080"></div>
+        </div>
     </div>
+    
+    <a href="index.html" class="back-button">
+        <img src="image/back-arrow.png" alt="Back to Main Menu">
+    </a>
 
     <script>
         const colorButtons = document.querySelectorAll('.color-button');
