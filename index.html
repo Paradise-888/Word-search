@@ -11,12 +11,17 @@
             const savedColor = localStorage.getItem('themeColor');
             if (savedColor) {
                 document.body.style.backgroundColor = savedColor;
+            } else {
+                // Set default color from wc.png image if not set
+                document.body.style.backgroundColor = '#ffc700'; // Yellowish-orange
             }
         });
     </script>
 </head>
 <body>
     <div class="main-menu-container">
+        <img src="image/wc.png" alt="Word Craft Logo" class="main-logo">
+        
         <div class="button-section">
             <a href="category.html" class="menu-button" id="play-button">PLAY</a>
             <a href="setting.html" class="menu-button" id="setting-button">Settings</a>
