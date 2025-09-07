@@ -56,8 +56,14 @@ img {
     min-height: 100vh;
 }
 
-.main-logo {
-    width: 200px;
+/* Logo container for responsive background image */
+.main-logo-container {
+    width: 100%;
+    height: 200px; /* Default height */
+    background-image: url('image/wc.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
     margin-bottom: 30px;
 }
 
@@ -85,9 +91,14 @@ img {
     min-height: 100vh;
 }
 
-.setting-image {
+/* Settings image container for responsive background image */
+.setting-image-container {
     width: 150px;
-    height: auto;
+    height: 150px; /* Default height */
+    background-image: url('image/setting.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
     margin-bottom: 20px;
 }
 
@@ -114,8 +125,12 @@ img {
         font-size: 1.2rem;
         padding: 12px 24px;
     }
-    .main-logo, .setting-image {
-        width: 150px;
+    .main-logo-container {
+        height: 150px; /* Adjust logo container height */
+    }
+    .setting-image-container {
+        width: 120px; /* Adjust settings image container width */
+        height: 120px; /* Adjust settings image container height */
     }
     .word-search-container h1 {
         font-size: 2rem;
@@ -139,10 +154,34 @@ img {
     }
 }
 
-/* --- Dark Mode Styles --- */
+/* --- Theme Styles --- */
+/* Light Mode (Default, matching wc.png) */
+.light-mode {
+    background-color: #FF9800; /* Orange color similar to wc.png */
+    color: #333; /* Default text color for light mode */
+}
+.light-mode h1, .light-mode h3 {
+    color: #333;
+}
+.light-mode #word-list li {
+    color: #333;
+}
+.light-mode #word-grid {
+    background-color: #fff;
+    border-color: #333;
+}
+.light-mode .grid-cell {
+    color: #333;
+}
+.light-mode .grid-cell.highlighted {
+    background-color: #a7a7a7;
+}
+
+
+/* Dark Mode */
 .dark-mode {
-    background-color: #333;
-    color: #f0f0f0;
+    background-color: #333; /* Dark background */
+    color: #f0f0f0; /* Light text */
 }
 .dark-mode .menu-button, .dark-mode .category-button {
     background-color: #555;
