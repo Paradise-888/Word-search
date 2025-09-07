@@ -118,6 +118,19 @@ img {
     color: #fff;
 }
 
+/* Category page-specific images */
+.category-title {
+    width: 250px; /* Adjust size as needed */
+    height: auto;
+    margin-bottom: 30px;
+}
+
+.category-option {
+    width: 250px; /* Adjust size as needed */
+    height: auto;
+    margin-bottom: 20px;
+}
+
 /* Responsive adjustments for smaller screens */
 @media (max-width: 600px) {
     .menu-button, .category-button {
