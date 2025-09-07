@@ -5,10 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Word Craft</title>
     <link rel="stylesheet" href="menu-style.css">
+    <style>
+        .main-logo-container {
+            width: 100%;
+            height: 200px; /* Adjust height as needed */
+            background-image: url('image/wc.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin-bottom: 30px;
+        }
+
+        /* Adjust logo size on smaller screens */
+        @media (max-width: 600px) {
+            .main-logo-container {
+                height: 150px;
+            }
+        }
+    </style>
 </head>
 <body class="light-mode">
     <div class="main-menu-container">
-        <img src="image/wc.png" alt="Word Craft Logo" class="main-logo">
+        <div class="main-logo-container"></div>
         <div class="button-section">
             <a href="category.html" class="menu-button" id="play-button">PLAY</a>
             <a href="setting.html" class="menu-button" id="setting-button">Settings</a>

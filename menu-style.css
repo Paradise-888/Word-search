@@ -91,28 +91,6 @@ img {
     margin-bottom: 20px;
 }
 
-.color-buttons {
-    display: flex;
-    gap: 15px;
-    margin-top: 20px;
-}
-.color-button {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    cursor: pointer;
-    border: 2px solid transparent;
-    box-shadow: 0 4px #888;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-.color-button:hover {
-    transform: scale(1.1);
-}
-.color-button.active {
-    border-color: #000;
-    box-shadow: 0 0 0 4px #000;
-}
-
 /* Styles for Word Search Game */
 .grid-cell.highlighted {
     background-color: #a7a7a7;

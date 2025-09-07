@@ -13,6 +13,15 @@
             justify-content: center;
             min-height: 100vh;
         }
+        .setting-image-container {
+            width: 150px;
+            height: 150px; /* Adjust height as needed */
+            background-image: url('image/setting.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin-bottom: 20px;
+        }
         .theme-buttons {
             display: flex;
             gap: 15px;
@@ -36,7 +45,7 @@
 <body class="light-mode">
     <div class="settings-container">
         <h1>SETTINGS</h1>
-        <img src="image/setting.png" alt="Settings Icon" class="setting-image">
+        <div class="setting-image-container"></div>
         
         <h3>Choose your theme:</h3>
         <div class="theme-buttons">
