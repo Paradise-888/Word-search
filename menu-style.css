@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jellee&display=swap');
 
 /* Style for all images */
 img {
@@ -8,7 +8,9 @@ img {
 
 /* Base font for all elements */
 body {
-    font-family: 'Prompt', sans-serif;
+    font-family: 'Jellee', cursive; /* ใช้ 'Jellee' เป็นฟอนต์หลัก */
+    margin: 0; /* Remove default body margin */
+    overflow-x: hidden; /* Prevent horizontal scroll on small devices */
 }
 
 /* Style for all buttons */
@@ -46,6 +48,7 @@ body {
     padding: 0;
     box-shadow: none;
     transition: transform 0.2s;
+    z-index: 100; /* Ensure back button is on top */
 }
 
 /* Style for the back arrow image inside the button */
@@ -54,30 +57,32 @@ body {
     height: auto;
 }
 
-/* Main menu page */
+/* Main menu page container - now the background */
 .main-menu-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
+    width: 100vw; /* Make sure it takes full width */
+    background-image: url('image/wc.png');
+    background-size: cover; /* Make background image cover entire container */
+    background-repeat: no-repeat;
+    background-position: center center; /* Center the image */
+    position: relative; /* For stacking contexts */
 }
 
-/* Logo container for responsive background image */
+/* Hide the logo container as the background is now on main-menu-container */
 .main-logo-container {
-    width: 100%;
-    height: 40vh; /* ทำให้สูงขึ้นเพื่อแสดงผลเต็มจอ */
-    background-image: url('image/wc.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    margin-bottom: 30px;
+    display: none; /* No longer needed as background is on parent */
 }
 
 .button-section {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center; /* Center buttons vertically */
+    flex-grow: 1; /* Allow button section to take available space for centering */
 }
 
 /* Category page */
@@ -87,26 +92,27 @@ body {
     align-items: center;
     justify-content: center;
     min-height: 100vh;
+    width: 100vw; /* Full width for category page */
 }
 
-/* Settings page */
+/* Settings page container - now the background */
 .settings-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
+    width: 100vw; /* Make sure it takes full width */
+    background-image: url('image/setting.png');
+    background-size: cover; /* Make background image cover entire container */
+    background-repeat: no-repeat;
+    background-position: center center; /* Center the image */
+    position: relative; /* For stacking contexts */
 }
 
-/* Settings image container for responsive background image */
+/* Hide the settings image container as the background is now on settings-container */
 .setting-image-container {
-    width: 100%;
-    height: 30vh; /* ทำให้สูงขึ้นเพื่อแสดงผลเต็มจอ */
-    background-image: url('image/setting.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    margin-bottom: 20px;
+    display: none; /* No longer needed as background is on parent */
 }
 
 /* Styles for Word Search Game container */
@@ -256,12 +262,6 @@ body {
         width: 80%;
         font-size: 1.2rem;
         padding: 12px 24px;
-    }
-    .main-logo-container {
-        height: 30vh; /* Adjust logo container height */
-    }
-    .setting-image-container {
-        height: 20vh; /* Adjust settings image container height */
     }
     
     .word-search-game-container {
