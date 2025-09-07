@@ -3,9 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Word Craft - Category</title>
+    <title>Word Craft - Career Word Search</title>
     <link rel="stylesheet" href="menu-style.css">
-    
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .word-search-container {
+            margin-top: 20px;
+        }
+        
+        #word-list {
+            margin: 20px 0;
+            padding: 0;
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        #word-list li {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #333;
+        }
+
+        #word-grid {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            border: 2px solid #333;
+            background-color: #fff;
+            padding: 5px;
+            gap: 1px;
+            margin-top: 20px;
+            user-select: none;
+        }
+        
+        .grid-cell {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+    </style>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const savedColor = localStorage.getItem('themeColor');
@@ -16,15 +71,191 @@
     </script>
 </head>
 <body>
-    <div class="category-container">
-        <h1>CATEGORY</h1>
-        <img src="image/category.png" alt="Category Image" style="width: 150px; margin-bottom: 30px;">
-        <a href="animal-game.html" class="category-button">Animal</a>
-        <a href="#" class="category-button">Career</a>
+    <div class="word-search-container">
+        <h1>Word Search</h1>
+        <h3>Find these careers:</h3>
+        <ul id="word-list"></ul>
+        <div id="word-grid"></div>
     </div>
     
-    <a href="index.html" class="back-button">
-        <img src="image/back-arrow.png" alt="Back to Main Menu">
+    <a href="category.html" class="back-button">
+        <img src="image/back-arrow.png" alt="Back to Category">
     </a>
+
+    <script>
+        const wordList = ['TEACHER', 'DOCTOR', 'ARTIST', 'NURSE', 'ENGINEER'];
+        const gridSize = 10;
+        const grid = [];
+        let isDrawing = false;
+        let startCell = null;
+        let endCell = null;
+        let currentCells = [];
+        
+        const wordListEl = document.getElementById('word-list');
+        const wordGridEl = document.getElementById('word-grid');
+
+        function createGrid() {
+            for (let i = 0; i < gridSize * gridSize; i++) {
+                const cell = document.createElement('div');
+                cell.classList.add('grid-cell');
+                cell.dataset.index = i;
+                cell.textContent = getRandomLetter();
+                wordGridEl.appendChild(cell);
+            }
+        }
+        
+        function getRandomLetter() {
+            const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            return alphabet[Math.floor(Math.random() * alphabet.length)];
+        }
+
+        function placeWords() {
+            wordList.forEach(word => {
+                let placed = false;
+                while (!placed) {
+                    const direction = Math.floor(Math.random() * 2);
+                    const startPos = Math.floor(Math.random() * gridSize * gridSize);
+                    const startX = startPos % gridSize;
+                    const startY = Math.floor(startPos / gridSize);
+                    
+                    let canPlace = true;
+                    if (direction === 0 && startX + word.length > gridSize) {
+                        canPlace = false;
+                    }
+                    if (direction === 1 && startY + word.length > gridSize) {
+                        canPlace = false;
+                    }
+                    
+                    if (canPlace) {
+                        let cells = [];
+                        for (let i = 0; i < word.length; i++) {
+                            const x = startX + (direction === 0 ? i : 0);
+                            const y = startY + (direction === 1 ? i : 0);
+                            const index = y * gridSize + x;
+                            const cell = wordGridEl.children[index];
+                            if (cell.textContent !== getRandomLetter() && cell.textContent !== word[i]) {
+                                canPlace = false;
+                                break;
+                            }
+                            cells.push(cell);
+                        }
+                        
+                        if (canPlace) {
+                            cells.forEach((cell, i) => {
+                                cell.textContent = word[i];
+                            });
+                            placed = true;
+                        }
+                    }
+                }
+            });
+        }
+        
+        function displayWordList() {
+            wordList.forEach(word => {
+                const li = document.createElement('li');
+                li.textContent = word;
+                wordListEl.appendChild(li);
+            });
+        }
+        
+        function checkSelection() {
+            if (!startCell || !endCell) return;
+            
+            const startIdx = parseInt(startCell.dataset.index);
+            const endIdx = parseInt(endCell.dataset.index);
+            
+            const startX = startIdx % gridSize;
+            const startY = Math.floor(startIdx / gridSize);
+            const endX = endIdx % gridSize;
+            const endY = Math.floor(endIdx / gridSize);
+            
+            const selectedCells = getSelectedCells(startX, startY, endX, endY);
+            const selectedWord = selectedCells.map(cell => cell.textContent).join('');
+
+            let found = false;
+            wordList.forEach((word, i) => {
+                if (word === selectedWord || word === selectedWord.split('').reverse().join('')) {
+                    selectedCells.forEach(cell => cell.classList.add('found'));
+                    wordListEl.children[i].style.textDecoration = 'line-through';
+                    found = true;
+                }
+            });
+            
+            if (!found) {
+                selectedCells.forEach(cell => cell.classList.add('wrong'));
+                setTimeout(() => {
+                    selectedCells.forEach(cell => cell.classList.remove('wrong'));
+                }, 500);
+            }
+            
+            if (wordList.every((w, i) => wordListEl.children[i].style.textDecoration === 'line-through')) {
+                setTimeout(() => alert('You found all the words!'), 500);
+            }
+        }
+        
+        function getSelectedCells(startX, startY, endX, endY) {
+            const cells = [];
+            let dx = endX - startX;
+            let dy = endY - startY;
+            const length = Math.max(Math.abs(dx), Math.abs(dy)) + 1;
+            
+            dx = dx !== 0 ? Math.sign(dx) : 0;
+            dy = dy !== 0 ? Math.sign(dy) : 0;
+            
+            for (let i = 0; i < length; i++) {
+                const x = startX + i * dx;
+                const y = startY + i * dy;
+                const index = y * gridSize + x;
+                cells.push(wordGridEl.children[index]);
+            }
+            return cells;
+        }
+
+        wordGridEl.addEventListener('mousedown', (e) => {
+            isDrawing = true;
+            startCell = e.target;
+            currentCells = [];
+            wordGridEl.classList.add('drawing');
+            e.target.classList.add('highlighted');
+        });
+
+        wordGridEl.addEventListener('mouseup', (e) => {
+            if (isDrawing) {
+                isDrawing = false;
+                endCell = e.target;
+                checkSelection();
+                currentCells.forEach(cell => cell.classList.remove('highlighted'));
+                wordGridEl.classList.remove('drawing');
+            }
+        });
+        
+        wordGridEl.addEventListener('mouseleave', () => {
+            if (isDrawing) {
+                isDrawing = false;
+                currentCells.forEach(cell => cell.classList.remove('highlighted'));
+                wordGridEl.classList.remove('drawing');
+            }
+        });
+
+        wordGridEl.addEventListener('mouseover', (e) => {
+            if (isDrawing && e.target.classList.contains('grid-cell')) {
+                currentCells.forEach(cell => cell.classList.remove('highlighted'));
+                endCell = e.target;
+                currentCells = getSelectedCells(
+                    parseInt(startCell.dataset.index) % gridSize,
+                    Math.floor(parseInt(startCell.dataset.index) / gridSize),
+                    parseInt(endCell.dataset.index) % gridSize,
+                    Math.floor(parseInt(endCell.dataset.index) / gridSize)
+                );
+                currentCells.forEach(cell => cell.classList.add('highlighted'));
+            }
+        });
+
+        createGrid();
+        placeWords();
+        displayWordList();
+        
+    </script>
 </body>
 </html>

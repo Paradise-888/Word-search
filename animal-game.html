@@ -59,22 +59,16 @@
             cursor: pointer;
             transition: background-color 0.2s;
         }
-
-        .found {
-            background-color: #90ee90;
-            color: #fff;
-        }
-        
-        .back-button {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            width: auto;
-            padding: 10px 20px;
-            font-size: 1.2rem;
-            box-shadow: none;
-        }
     </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedColor = localStorage.getItem('themeColor');
+            if (savedColor) {
+                document.body.style.backgroundColor = savedColor;
+            }
+        });
+    </script>
 </head>
 <body>
     <div class="word-search-container">
@@ -84,7 +78,9 @@
         <div id="word-grid"></div>
     </div>
     
-    <a href="category.html" class="menu-button back-button">Back</a>
+    <a href="category.html" class="back-button">
+        <img src="image/back-arrow.png" alt="Back to Category">
+    </a>
 
     <script>
         const wordList = ['TIGER', 'LION', 'ZEBRA', 'BEAR', 'SHARK', 'PANDA'];
@@ -93,6 +89,7 @@
         let isDrawing = false;
         let startCell = null;
         let endCell = null;
+        let currentCells = [];
         
         const wordListEl = document.getElementById('word-list');
         const wordGridEl = document.getElementById('word-grid');
@@ -176,16 +173,25 @@
             const selectedCells = getSelectedCells(startX, startY, endX, endY);
             const selectedWord = selectedCells.map(cell => cell.textContent).join('');
 
+            let found = false;
             wordList.forEach((word, i) => {
                 if (word === selectedWord || word === selectedWord.split('').reverse().join('')) {
                     selectedCells.forEach(cell => cell.classList.add('found'));
                     wordListEl.children[i].style.textDecoration = 'line-through';
-                    
-                    if (wordList.every((w, i) => wordListEl.children[i].style.textDecoration === 'line-through')) {
-                        setTimeout(() => alert('You found all the words!'), 500);
-                    }
+                    found = true;
                 }
             });
+            
+            if (!found) {
+                selectedCells.forEach(cell => cell.classList.add('wrong'));
+                setTimeout(() => {
+                    selectedCells.forEach(cell => cell.classList.remove('wrong'));
+                }, 500); // Remove wrong highlight after 0.5s
+            }
+            
+            if (wordList.every((w, i) => wordListEl.children[i].style.textDecoration === 'line-through')) {
+                setTimeout(() => alert('You found all the words!'), 500);
+            }
         }
         
         function getSelectedCells(startX, startY, endX, endY) {
@@ -209,6 +215,9 @@
         wordGridEl.addEventListener('mousedown', (e) => {
             isDrawing = true;
             startCell = e.target;
+            currentCells = []; // Reset current cells
+            wordGridEl.classList.add('drawing');
+            e.target.classList.add('highlighted');
         });
 
         wordGridEl.addEventListener('mouseup', (e) => {
@@ -216,6 +225,30 @@
                 isDrawing = false;
                 endCell = e.target;
                 checkSelection();
+                currentCells.forEach(cell => cell.classList.remove('highlighted'));
+                wordGridEl.classList.remove('drawing');
+            }
+        });
+        
+        wordGridEl.addEventListener('mouseleave', () => {
+            if (isDrawing) {
+                isDrawing = false;
+                currentCells.forEach(cell => cell.classList.remove('highlighted'));
+                wordGridEl.classList.remove('drawing');
+            }
+        });
+
+        wordGridEl.addEventListener('mouseover', (e) => {
+            if (isDrawing && e.target.classList.contains('grid-cell')) {
+                currentCells.forEach(cell => cell.classList.remove('highlighted'));
+                endCell = e.target;
+                currentCells = getSelectedCells(
+                    parseInt(startCell.dataset.index) % gridSize,
+                    Math.floor(parseInt(startCell.dataset.index) / gridSize),
+                    parseInt(endCell.dataset.index) % gridSize,
+                    Math.floor(parseInt(endCell.dataset.index) / gridSize)
+                );
+                currentCells.forEach(cell => cell.classList.add('highlighted'));
             }
         });
 
