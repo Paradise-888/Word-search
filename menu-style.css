@@ -1,7 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@400;700&display=swap');
+
 /* Style for all images */
 img {
     max-width: 100%;
     height: auto;
+}
+
+/* Base font for all elements */
+body {
+    font-family: 'Prompt', sans-serif;
 }
 
 /* Style for all buttons */
