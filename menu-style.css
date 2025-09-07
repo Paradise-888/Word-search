@@ -1,40 +1,98 @@
-/* --- สำหรับรูปภาพทั่วไปทั้งหมดในเกม --- */
+/* Style for all images */
 img {
-    max-width: 100%; /* ทำให้รูปไม่ใหญ่เกินขนาดของพื้นที่ที่มันอยู่ */
-    height: auto;    /* ทำให้รักษาสัดส่วนของรูปภาพไว้ */
-    display: block;  /* ทำให้รูปภาพไม่เหลือที่ว่างข้างล่าง */
-}
-
-/* --- สำหรับรูปภาพ Setting ในหน้า setting.html โดยเฉพาะ --- */
-.settings-container img { /* เลือกเฉพาะรูปภาพที่อยู่ใน settings-container */
-    width: 150px; /* กำหนดความกว้างของรูปภาพให้เป็น 150px */
-    height: auto; /* รักษาสัดส่วนของรูปภาพ */
-    margin-bottom: 20px; /* เพิ่มระยะห่างด้านล่าง */
-}
-
-/* --- สำหรับปุ่มย้อนกลับ (ลูกศร) ถ้าคุณใช้รูปภาพสำหรับปุ่มนี้ --- */
-.back-arrow-button img {
-    width: 50px; /* กำหนดความกว้างของลูกศรย้อนกลับ */
+    max-width: 100%;
     height: auto;
 }
 
-/* --- สำหรับโลโก้เกม (wc.png) ถ้าคุณเคยใส่ไว้ใน index.html --- */
-.game-logo { /* ใช้คลาส game-logo ที่เราเคยเพิ่มไปใน index.html */
-    width: 200px; /* กำหนดความกว้างของโลโก้ */
-    height: auto;
-    margin-bottom: 30px;
-}
-
-/* --- สไตล์ปุ่มทั่วไป (อาจจะมีอยู่แล้ว) --- */
+/* Style for all buttons */
 .menu-button, .category-button {
-    /* ... (โค้ดสไตล์ปุ่มเดิมของคุณ) ... */
+    display: block;
+    width: 250px;
     padding: 15px 30px;
+    margin-bottom: 20px;
+    text-align: center;
     font-size: 1.5rem;
-    /* ... */
+    text-decoration: none;
+    color: #fff;
+    background-color: #555;
+    border-radius: 10px;
+    box-shadow: 0 5px #333;
+    transition: transform 0.2s;
 }
 
-/* --- ถ้ามีปุ่มย้อนกลับในหน้า category.html ที่เป็นรูปภาพ --- */
-.back-button-image {
-    width: 70px; /* กำหนดความกว้างของปุ่มย้อนกลับที่เป็นรูปภาพ */
+/* Specific button styles */
+.menu-button:hover, .category-button:hover {
+    transform: translateY(-2px);
+}
+
+/* Back button in bottom left */
+.back-button {
+    position: fixed; /* Keep button in the same place */
+    bottom: 20px; /* 20px from bottom edge */
+    left: 20px; /* 20px from left edge */
+    width: auto;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    box-shadow: none;
+}
+
+/* Main menu page */
+.main-menu-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.button-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Category page */
+.category-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+/* Settings page */
+.settings-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.settings-container img {
+    width: 150px;
     height: auto;
+    margin-bottom: 20px;
+}
+
+.color-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+.color-button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    box-shadow: 0 4px #888;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.color-button:hover {
+    transform: scale(1.1);
+}
+.color-button.active {
+    border-color: #000;
+    box-shadow: 0 0 0 4px #000;
 }
