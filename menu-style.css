@@ -59,7 +59,7 @@ img {
 /* Logo container for responsive background image */
 .main-logo-container {
     width: 100%;
-    height: 200px; /* Default height */
+    height: 40vh; /* ทำให้สูงขึ้นเพื่อแสดงผลเต็มจอ */
     background-image: url('image/wc.png');
     background-size: contain;
     background-repeat: no-repeat;
@@ -93,8 +93,8 @@ img {
 
 /* Settings image container for responsive background image */
 .setting-image-container {
-    width: 150px;
-    height: 150px; /* Default height */
+    width: 100%;
+    height: 30vh; /* ทำให้สูงขึ้นเพื่อแสดงผลเต็มจอ */
     background-image: url('image/setting.png');
     background-size: contain;
     background-repeat: no-repeat;
@@ -102,20 +102,132 @@ img {
     margin-bottom: 20px;
 }
 
-/* Styles for Word Search Game */
+/* Styles for Word Search Game container */
+.word-search-game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box; /* Include padding in element's total width and height */
+}
+
+.word-search-game-container h1 {
+    font-size: 2.5rem; /* Larger title */
+    color: #FF6347; /* Orange-red color for title */
+    margin-bottom: 20px;
+}
+
+.game-card {
+    background-color: #f8f8f8;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+    width: 90%;
+    max-width: 400px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#word-grid {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    border: 3px solid #ff9800; /* Orange border for grid */
+    background-color: #fff;
+    padding: 5px;
+    gap: 1px;
+    margin-top: 15px;
+    user-select: none;
+    width: 100%; /* Make grid fill card width */
+    aspect-ratio: 1 / 1; /* Keep grid square */
+    max-width: 350px; /* Limit max size */
+    box-sizing: border-box;
+}
+
+.grid-cell {
+    width: 100%; /* Fill parent grid space */
+    height: auto; /* Auto height */
+    padding-bottom: 100%; /* Make cells square */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem; /* Slightly smaller for better fit */
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+    position: relative; /* For padding-bottom trick */
+}
+
+.grid-cell span {
+    position: absolute; /* Center content */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 .grid-cell.highlighted {
     background-color: #a7a7a7;
+    color: #fff;
 }
 
 .grid-cell.found {
-    background-color: #90ee90;
+    background-color: #90ee90; /* Green */
     color: #fff;
     font-weight: bold;
 }
 
 .grid-cell.wrong {
-    background-color: #ff6347;
+    background-color: #ff6347; /* Red */
     color: #fff;
+}
+
+/* Words to Find section */
+.words-to-find-card {
+    background-color: #f8f8f8;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 90%;
+    max-width: 400px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.words-to-find-card h3 {
+    font-size: 1.5rem;
+    color: #FF6347; /* Orange-red color for title */
+    margin-bottom: 15px;
+}
+
+#word-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px; /* Spacing between word buttons */
+}
+
+#word-list li {
+    font-weight: bold;
+    font-size: 1.1rem;
+    padding: 8px 15px;
+    background-color: #90ee90; /* Green button */
+    color: #fff;
+    border-radius: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: background-color 0.2s;
+}
+
+#word-list li.found {
+    background-color: #5cb85c; /* Darker green when found */
+    text-decoration: line-through;
 }
 
 /* Category page-specific images */
@@ -139,31 +251,34 @@ img {
         padding: 12px 24px;
     }
     .main-logo-container {
-        height: 150px; /* Adjust logo container height */
+        height: 30vh; /* Adjust logo container height */
     }
     .setting-image-container {
-        width: 120px; /* Adjust settings image container width */
-        height: 120px; /* Adjust settings image container height */
+        height: 20vh; /* Adjust settings image container height */
     }
-    .word-search-container h1 {
+    
+    .word-search-game-container {
+        padding: 10px;
+    }
+    .word-search-game-container h1 {
         font-size: 2rem;
     }
-    .word-search-container h3 {
-        font-size: 1rem;
+    .game-card, .words-to-find-card {
+        width: 95%;
+        padding: 15px;
     }
     #word-grid {
-        grid-template-columns: repeat(10, 1fr);
-        width: 90vw;
-        padding: 2px;
+        max-width: 300px; /* Smaller max width for grid */
     }
     .grid-cell {
-        width: 8vw;
-        height: 8vw;
-        font-size: 1rem;
+        font-size: 0.9rem; /* Smaller font for cells */
+    }
+    .words-to-find-card h3 {
+        font-size: 1.3rem;
     }
     #word-list li {
-        font-size: 1rem;
-        gap: 10px;
+        font-size: 0.9rem;
+        padding: 6px 12px;
     }
 }
 
@@ -188,6 +303,19 @@ img {
 }
 .light-mode .grid-cell.highlighted {
     background-color: #a7a7a7;
+}
+.light-mode .words-to-find-card h3 {
+    color: #FF6347; /* Title for words to find in light mode */
+}
+.light-mode .word-search-game-container h1 {
+    color: #FF6347; /* Main game title in light mode */
+}
+.light-mode #word-list li {
+    background-color: #90ee90; /* Green for word buttons in light mode */
+    color: #fff;
+}
+.light-mode #word-list li.found {
+    background-color: #5cb85c;
 }
 
 
@@ -227,4 +355,21 @@ img {
 }
 .dark-mode .grid-cell.wrong {
     background-color: #cc4444; /* A darker red */
+}
+.dark-mode .game-card, .dark-mode .words-to-find-card {
+    background-color: #4a4a4a; /* Darker background for cards */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+.dark-mode .words-to-find-card h3 {
+    color: #f0f0f0; /* Title for words to find in dark mode */
+}
+.dark-mode .word-search-game-container h1 {
+    color: #f0f0f0; /* Main game title in dark mode */
+}
+.dark-mode #word-list li {
+    background-color: #3cb371; /* Darker green for word buttons in dark mode */
+    color: #f0f0f0;
+}
+.dark-mode #word-list li.found {
+    background-color: #2e8b57; /* Even darker green when found */
 }

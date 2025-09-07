@@ -5,68 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Word Craft - Animal Word Search</title>
     <link rel="stylesheet" href="menu-style.css">
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            text-align: center;
-            font-family: Arial, sans-serif;
-        }
-
-        .word-search-container {
-            margin-top: 20px;
-        }
-        
-        #word-list {
-            margin: 20px 0;
-            padding: 0;
-            list-style: none;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-        }
-        
-        #word-list li {
-            font-weight: bold;
-            font-size: 1.2rem;
-            color: #333;
-        }
-
-        #word-grid {
-            display: grid;
-            grid-template-columns: repeat(10, 1fr);
-            border: 2px solid #333;
-            background-color: #fff;
-            padding: 5px;
-            gap: 1px;
-            margin-top: 20px;
-            user-select: none;
-        }
-        
-        .grid-cell {
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #333;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-    </style>
 </head>
 <body class="light-mode">
-    <div class="word-search-container">
+    <div class="word-search-game-container">
         <h1>Word Search</h1>
-        <h3>Find these animals:</h3>
-        <ul id="word-list"></ul>
-        <div id="word-grid"></div>
+        
+        <div class="game-card">
+            <div id="word-grid"></div>
+        </div>
+
+        <div class="words-to-find-card">
+            <h3>Words to Find</h3>
+            <ul id="word-list"></ul>
+        </div>
     </div>
     
     <a href="category.html" class="back-button">
@@ -81,6 +32,10 @@
             } else {
                 document.body.className = 'light-mode';
             }
+
+            createGrid();
+            placeWords();
+            displayWordList();
         });
 
         const wordList = ['TIGER', 'LION', 'ZEBRA', 'BEAR', 'SHARK', 'PANDA'];
@@ -95,11 +50,12 @@
         const wordGridEl = document.getElementById('word-grid');
 
         function createGrid() {
+            wordGridEl.innerHTML = ''; // Clear existing grid
             for (let i = 0; i < gridSize * gridSize; i++) {
                 const cell = document.createElement('div');
                 cell.classList.add('grid-cell');
                 cell.dataset.index = i;
-                cell.textContent = getRandomLetter();
+                cell.innerHTML = '<span>' + getRandomLetter() + '</span>'; // Wrap letter in span for centering
                 wordGridEl.appendChild(cell);
             }
         }
@@ -113,16 +69,16 @@
             wordList.forEach(word => {
                 let placed = false;
                 while (!placed) {
-                    const direction = Math.floor(Math.random() * 2);
+                    const direction = Math.floor(Math.random() * 2); // 0 = horizontal, 1 = vertical
                     const startPos = Math.floor(Math.random() * gridSize * gridSize);
                     const startX = startPos % gridSize;
                     const startY = Math.floor(startPos / gridSize);
                     
                     let canPlace = true;
-                    if (direction === 0 && startX + word.length > gridSize) {
+                    if (direction === 0 && startX + word.length > gridSize) { // Check horizontal fit
                         canPlace = false;
                     }
-                    if (direction === 1 && startY + word.length > gridSize) {
+                    if (direction === 1 && startY + word.length > gridSize) { // Check vertical fit
                         canPlace = false;
                     }
                     
@@ -133,7 +89,8 @@
                             const y = startY + (direction === 1 ? i : 0);
                             const index = y * gridSize + x;
                             const cell = wordGridEl.children[index];
-                            if (cell.textContent !== getRandomLetter() && cell.textContent !== word[i]) {
+                            // Check if cell is empty or contains the same letter
+                            if (cell.querySelector('span').textContent !== getRandomLetter() && cell.querySelector('span').textContent !== word[i]) {
                                 canPlace = false;
                                 break;
                             }
@@ -142,7 +99,7 @@
                         
                         if (canPlace) {
                             cells.forEach((cell, i) => {
-                                cell.textContent = word[i];
+                                cell.querySelector('span').textContent = word[i];
                             });
                             placed = true;
                         }
@@ -152,6 +109,7 @@
         }
         
         function displayWordList() {
+            wordListEl.innerHTML = ''; // Clear existing list
             wordList.forEach(word => {
                 const li = document.createElement('li');
                 li.textContent = word;
@@ -171,13 +129,13 @@
             const endY = Math.floor(endIdx / gridSize);
             
             const selectedCells = getSelectedCells(startX, startY, endX, endY);
-            const selectedWord = selectedCells.map(cell => cell.textContent).join('');
+            const selectedWord = selectedCells.map(cell => cell.querySelector('span').textContent).join('');
 
             let found = false;
             wordList.forEach((word, i) => {
                 if (word === selectedWord || word === selectedWord.split('').reverse().join('')) {
                     selectedCells.forEach(cell => cell.classList.add('found'));
-                    wordListEl.children[i].style.textDecoration = 'line-through';
+                    wordListEl.children[i].classList.add('found'); // Add 'found' class to li
                     found = true;
                 }
             });
@@ -189,7 +147,7 @@
                 }, 500);
             }
             
-            if (wordList.every((w, i) => wordListEl.children[i].style.textDecoration === 'line-through')) {
+            if (wordList.every((w, i) => wordListEl.children[i].classList.contains('found'))) {
                 setTimeout(() => alert('You found all the words!'), 500);
             }
         }
@@ -214,17 +172,21 @@
 
         wordGridEl.addEventListener('mousedown', (e) => {
             isDrawing = true;
-            startCell = e.target;
-            currentCells = [];
-            wordGridEl.classList.add('drawing');
-            e.target.classList.add('highlighted');
+            startCell = e.target.closest('.grid-cell'); // Ensure we get the cell div
+            if (startCell) {
+                currentCells = [];
+                wordGridEl.classList.add('drawing');
+                startCell.classList.add('highlighted');
+            }
         });
 
         wordGridEl.addEventListener('mouseup', (e) => {
             if (isDrawing) {
                 isDrawing = false;
-                endCell = e.target;
-                checkSelection();
+                endCell = e.target.closest('.grid-cell');
+                if (endCell) {
+                    checkSelection();
+                }
                 currentCells.forEach(cell => cell.classList.remove('highlighted'));
                 wordGridEl.classList.remove('drawing');
             }
@@ -239,22 +201,20 @@
         });
 
         wordGridEl.addEventListener('mouseover', (e) => {
-            if (isDrawing && e.target.classList.contains('grid-cell')) {
+            if (isDrawing && e.target.closest('.grid-cell')) {
                 currentCells.forEach(cell => cell.classList.remove('highlighted'));
-                endCell = e.target;
-                currentCells = getSelectedCells(
-                    parseInt(startCell.dataset.index) % gridSize,
-                    Math.floor(parseInt(startCell.dataset.index) / gridSize),
-                    parseInt(endCell.dataset.index) % gridSize,
-                    Math.floor(parseInt(endCell.dataset.index) / gridSize)
-                );
-                currentCells.forEach(cell => cell.classList.add('highlighted'));
+                endCell = e.target.closest('.grid-cell');
+                if (startCell && endCell) {
+                    currentCells = getSelectedCells(
+                        parseInt(startCell.dataset.index) % gridSize,
+                        Math.floor(parseInt(startCell.dataset.index) / gridSize),
+                        parseInt(endCell.dataset.index) % gridSize,
+                        Math.floor(parseInt(endCell.dataset.index) / gridSize)
+                    );
+                    currentCells.forEach(cell => cell.classList.add('highlighted'));
+                }
             }
         });
-
-        createGrid();
-        placeWords();
-        displayWordList();
     </script>
 </body>
 </html>
