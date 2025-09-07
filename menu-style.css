@@ -1,77 +1,40 @@
-body {
-    margin: 0;
-    font-family: 'Arial', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #F8E9C7;
-    overflow: hidden;
+/* --- สำหรับรูปภาพทั่วไปทั้งหมดในเกม --- */
+img {
+    max-width: 100%; /* ทำให้รูปไม่ใหญ่เกินขนาดของพื้นที่ที่มันอยู่ */
+    height: auto;    /* ทำให้รักษาสัดส่วนของรูปภาพไว้ */
+    display: block;  /* ทำให้รูปภาพไม่เหลือที่ว่างข้างล่าง */
 }
 
-.main-menu-container {
-    width: 100%;
-    max-width: 450px;
-    height: 100vh;
-    position: relative;
-    background-image: url('image/wc.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-    padding-bottom: 25vh;
-    box-sizing: border-box;
+/* --- สำหรับรูปภาพ Setting ในหน้า setting.html โดยเฉพาะ --- */
+.settings-container img { /* เลือกเฉพาะรูปภาพที่อยู่ใน settings-container */
+    width: 150px; /* กำหนดความกว้างของรูปภาพให้เป็น 150px */
+    height: auto; /* รักษาสัดส่วนของรูปภาพ */
+    margin-bottom: 20px; /* เพิ่มระยะห่างด้านล่าง */
 }
 
-.button-section {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    position: relative;
-    z-index: 2;
-    width: 100%;
-    align-items: center;
-}
-
-.menu-button {
-    background-color: #6C7A89;
-    color: white;
-    font-size: 1.8rem;
-    font-weight: bold;
-    padding: 15px 50px;
-    border: none;
-    border-radius: 15px;
-    box-shadow: 0 5px 0px #4a545e;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-    max-width: 250px;
-    width: 80%;
-    text-align: center;
-    text-decoration: none;
-}
-
-.menu-button:active {
-    transform: translateY(3px);
-    box-shadow: 0 2px 0px #4a545e;
-}
-
-.setting-image-button {
-    background: none;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    box-shadow: none;
-    transition: none;
-    width: auto;
-    max-width: 100%;
-}
-
-.setting-image-button img {
-    width: 150px;
+/* --- สำหรับปุ่มย้อนกลับ (ลูกศร) ถ้าคุณใช้รูปภาพสำหรับปุ่มนี้ --- */
+.back-arrow-button img {
+    width: 50px; /* กำหนดความกว้างของลูกศรย้อนกลับ */
     height: auto;
-    display: block;
+}
+
+/* --- สำหรับโลโก้เกม (wc.png) ถ้าคุณเคยใส่ไว้ใน index.html --- */
+.game-logo { /* ใช้คลาส game-logo ที่เราเคยเพิ่มไปใน index.html */
+    width: 200px; /* กำหนดความกว้างของโลโก้ */
+    height: auto;
+    margin-bottom: 30px;
+}
+
+/* --- สไตล์ปุ่มทั่วไป (อาจจะมีอยู่แล้ว) --- */
+.menu-button, .category-button {
+    /* ... (โค้ดสไตล์ปุ่มเดิมของคุณ) ... */
+    padding: 15px 30px;
+    font-size: 1.5rem;
+    /* ... */
+}
+
+/* --- ถ้ามีปุ่มย้อนกลับในหน้า category.html ที่เป็นรูปภาพ --- */
+.back-button-image {
+    width: 70px; /* กำหนดความกว้างของปุ่มย้อนกลับที่เป็นรูปภาพ */
+    height: auto;
 }
