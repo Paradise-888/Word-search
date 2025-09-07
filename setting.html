@@ -5,47 +5,118 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Word Craft - Settings</title>
     <link rel="stylesheet" href="menu-style.css">
+    <style>
+        .settings-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .color-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .color-button {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            box-shadow: 0 4px #888;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .color-button:hover {
+            transform: scale(1.1);
+        }
+        .color-button.active {
+            border-color: #000; /* สีขอบเมื่อเลือก */
+            box-shadow: 0 0 0 4px #000;
+        }
+
+        /* เพิ่มสไตล์สำหรับ Dark Mode */
+        body.dark-mode {
+            background-color: #1a1a1a; /* สีพื้นหลังดำเข้ม */
+            color: #f0f0f0; /* สีตัวอักษรขาวสว่าง */
+        }
+        body.dark-mode .menu-button,
+        body.dark-mode .category-button {
+            background-color: #333; /* ปุ่มจะเข้มขึ้น */
+            box-shadow: 0 5px #111;
+            color: #eee;
+        }
+
+        /* เพิ่มสไตล์สำหรับ Light Mode */
+        body.light-mode {
+            background-color: #f0f0f0; /* สีพื้นหลังขาวสว่าง */
+            color: #1a1a1a; /* สีตัวอักษรดำเข้ม */
+        }
+        body.light-mode .menu-button,
+        body.light-mode .category-button {
+            background-color: #555;
+            box-shadow: 0 5px #333;
+            color: #fff;
+        }
+
+    </style>
 </head>
 <body>
     <div class="settings-container">
         <h1>Settings</h1>
         <img src="image/setting.png" alt="Settings Icon">
         
-        <h3>Choose your theme color:</h3>
+        <h3>Choose your theme:</h3>
         <div class="color-buttons">
-            <div class="color-button" style="background-color: #add8e6;" data-color="#add8e6"></div>
-            <div class="color-button" style="background-color: #90ee90;" data-color="#90ee90"></div>
-            <div class="color-button" style="background-color: #ffb6c1;" data-color="#ffb6c1"></div>
+            <div class="color-button" style="background-color: #1a1a1a;" data-theme="dark"></div> 
+            <div class="color-button" style="background-color: #f0f0f0; border: 1px solid #ccc;" data-theme="light"></div>
         </div>
+
+        <a href="index.html" class="menu-button back-button">Back</a>
     </div>
-    
-    <a href="index.html" class="menu-button back-button">Back</a>
 
     <script>
         const colorButtons = document.querySelectorAll('.color-button');
         
         colorButtons.forEach(button => {
             button.addEventListener('click', () => {
-                const selectedColor = button.getAttribute('data-color');
-                localStorage.setItem('themeColor', selectedColor);
-                applyThemeColor(selectedColor);
+                const selectedTheme = button.getAttribute('data-theme');
+                localStorage.setItem('theme', selectedTheme); // เปลี่ยนจาก 'themeColor' เป็น 'theme'
+                applyTheme(selectedTheme);
+                updateActiveButton(selectedTheme);
             });
         });
 
-        function applyThemeColor(color) {
-            document.body.style.backgroundColor = color;
+        function applyTheme(theme) {
+            // ลบ class theme เก่าออกก่อน
+            document.body.classList.remove('dark-mode', 'light-mode');
+            
+            if (theme === 'dark') {
+                document.body.classList.add('dark-mode');
+            } else if (theme === 'light') {
+                document.body.classList.add('light-mode');
+            }
         }
-        
-        const savedColor = localStorage.getItem('themeColor');
-        if (savedColor) {
-            applyThemeColor(savedColor);
+
+        function updateActiveButton(activeTheme) {
             colorButtons.forEach(button => {
-                if (button.getAttribute('data-color') === savedColor) {
+                if (button.getAttribute('data-theme') === activeTheme) {
                     button.classList.add('active');
                 } else {
                     button.classList.remove('active');
                 }
             });
+        }
+        
+        // Apply saved theme on page load
+        const savedTheme = localStorage.getItem('theme'); // เปลี่ยนจาก 'themeColor' เป็น 'theme'
+        if (savedTheme) {
+            applyTheme(savedTheme);
+            updateActiveButton(savedTheme);
+        } else {
+            // กำหนด default เป็น light mode ถ้ายังไม่เคยตั้งค่า
+            applyTheme('light'); 
+            updateActiveButton('light');
         }
     </script>
 </body>
