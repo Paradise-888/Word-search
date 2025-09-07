@@ -86,7 +86,7 @@ img {
 }
 
 .setting-image {
-    width: 150px; /* เพิ่มคลาสสำหรับรูปภาพหน้า Settings */
+    width: 150px;
     height: auto;
     margin-bottom: 20px;
 }
@@ -159,4 +159,42 @@ img {
         font-size: 1rem;
         gap: 10px;
     }
+}
+
+/* --- Dark Mode Styles --- */
+.dark-mode {
+    background-color: #333;
+    color: #f0f0f0;
+}
+.dark-mode .menu-button, .dark-mode .category-button {
+    background-color: #555;
+    box-shadow: 0 7px #333;
+}
+.dark-mode .menu-button:hover, .dark-mode .category-button:hover {
+    box-shadow: 0 9px #333;
+}
+.dark-mode .menu-button:active, .dark-mode .category-button:active {
+    box-shadow: 0 2px #333;
+}
+.dark-mode h1, .dark-mode h3 {
+    color: #f0f0f0;
+}
+.dark-mode #word-list li {
+    color: #f0f0f0;
+}
+.dark-mode #word-grid {
+    background-color: #444;
+    border-color: #f0f0f0;
+}
+.dark-mode .grid-cell {
+    color: #f0f0f0;
+}
+.dark-mode .grid-cell.highlighted {
+    background-color: #666;
+}
+.dark-mode .grid-cell.found {
+    background-color: #3cb371; /* A darker green */
+}
+.dark-mode .grid-cell.wrong {
+    background-color: #cc4444; /* A darker red */
 }

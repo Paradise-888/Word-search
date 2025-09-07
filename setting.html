@@ -13,37 +13,36 @@
             justify-content: center;
             min-height: 100vh;
         }
-        .color-buttons {
+        .theme-buttons {
             display: flex;
             gap: 15px;
             margin-top: 20px;
         }
-        .color-button {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
+        .theme-button {
+            padding: 10px 20px;
+            border-radius: 8px;
             cursor: pointer;
-            border: 2px solid transparent;
+            font-size: 1.2rem;
             box-shadow: 0 4px #888;
             transition: transform 0.2s, box-shadow 0.2s;
+            color: #fff;
+            background-color: #555;
         }
-        .color-button:hover {
-            transform: scale(1.1);
-        }
-        .color-button.active {
-            border-color: #000;
-            box-shadow: 0 0 0 4px #000;
+        .theme-button:hover {
+            transform: scale(1.05);
         }
     </style>
 </head>
-<body>
+<body class="light-mode">
     <div class="settings-container">
         <h1>SETTINGS</h1>
         <img src="image/setting.png" alt="Settings Icon" class="setting-image">
         
-        <h3>Choose your theme color:</h3>
-        <div class="color-buttons">
-            <div class="color-button" style="background-color: #ffaa00;" data-color="#ffaa00"></div> <div class="color-button" style="background-color: #f0f0f0;" data-color="#f0f0f0"></div> <div class="color-button" style="background-color: #87ceeb;" data-color="#87ceeb"></div> </div>
+        <h3>Choose your theme:</h3>
+        <div class="theme-buttons">
+            <button class="theme-button" data-theme="light-mode">Light</button>
+            <button class="theme-button" data-theme="dark-mode">Dark</button>
+        </div>
     </div>
     
     <a href="index.html" class="back-button">
@@ -51,36 +50,23 @@
     </a>
 
     <script>
-        const colorButtons = document.querySelectorAll('.color-button');
-        
-        colorButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const selectedColor = button.getAttribute('data-color');
-                localStorage.setItem('themeColor', selectedColor);
-                applyThemeColor(selectedColor);
-                updateActiveButton(selectedColor);
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                document.body.className = savedTheme;
+            } else {
+                document.body.className = 'light-mode';
+            }
+
+            const themeButtons = document.querySelectorAll('.theme-button');
+            themeButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const theme = button.dataset.theme;
+                    document.body.className = theme;
+                    localStorage.setItem('theme', theme);
+                });
             });
         });
-
-        function applyThemeColor(color) {
-            document.body.style.backgroundColor = color;
-        }
-        
-        function updateActiveButton(activeColor) {
-            colorButtons.forEach(button => {
-                if (button.getAttribute('data-color') === activeColor) {
-                    button.classList.add('active');
-                } else {
-                    button.classList.remove('active');
-                }
-            });
-        }
-        
-        const savedColor = localStorage.getItem('themeColor');
-        if (savedColor) {
-            applyThemeColor(savedColor);
-            updateActiveButton(savedColor);
-        }
     </script>
 </body>
 </html>
