@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Craft - Animal Category</title>
+    <link rel="stylesheet" href="menu-style.css"> <style>
+        /* สไตล์สำหรับหน้าเกม */
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .game-container {
+            margin-top: 50px;
+        }
+        #word-display {
+            font-size: 3rem;
+            letter-spacing: 10px;
+            margin-bottom: 20px;
+        }
+        #message {
+            font-size: 1.5rem;
+            color: green;
+        }
+        #guess-input {
+            font-size: 1.5rem;
+            width: 50px;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>Guess the Animal!</h1>
+        <p>ทายชื่อสัตว์ภาษาอังกฤษ</p>
+        <div id="word-display"></div>
+        <p id="remaining-guesses"></p>
+        <p id="guessed-letters"></p>
+        <p id="message"></p>
+
+        <input type="text" id="guess-input" maxlength="1" autofocus>
+        
+        <a href="category.html" class="menu-button">Back</a>
+    </div>
+
+    <script>
+        // โค้ดเกม
+        const wordList = [
+            'tiger', 'lion', 'elephant', 'monkey', 'zebra',
+            'giraffe', 'bear', 'dolphin', 'shark', 'penguin'
+        ];
+        
+        const wordDisplay = document.getElementById('word-display');
+        const remainingGuessesEl = document.getElementById('remaining-guesses');
+        const guessedLettersEl = document.getElementById('guessed-letters');
+        const messageEl = document.getElementById('message');
+        const guessInput = document.getElementById('guess-input');
+
+        let secretWord = '';
+        let guessedLetters = new Set();
+        let remainingGuesses = 6;
+        let displayWord = [];
+
+        function startGame() {
+            secretWord = wordList[Math.floor(Math.random() * wordList.length)];
+            guessedLetters.clear();
+            remainingGuesses = 6;
+            displayWord = Array(secretWord.length).fill('_');
+
+            updateDisplay();
+            messageEl.textContent = '';
+            guessInput.value = '';
+            guessInput.disabled = false;
+            guessInput.focus();
+        }
+
+        function updateDisplay() {
+            wordDisplay.textContent = displayWord.join(' ');
+            remainingGuessesEl.textContent = `Guesses left: ${remainingGuesses}`;
+            guessedLettersEl.textContent = `Guessed letters: ${Array.from(guessedLetters).sort().join(', ')}`;
+        }
+
+        function checkGuess(guess) {
+            if (!guess || guessedLetters.has(guess)) {
+                return;
+            }
+
+            guessedLetters.add(guess);
+
+            if (secretWord.includes(guess)) {
+                for (let i = 0; i < secretWord.length; i++) {
+                    if (secretWord[i] === guess) {
+                        displayWord[i] = guess;
+                    }
+                }
+                messageEl.textContent = 'Correct!';
+            } else {
+                remainingGuesses--;
+                messageEl.textContent = 'Incorrect!';
+            }
+
+            updateDisplay();
+            
+            if (displayWord.join('') === secretWord) {
+                messageEl.textContent = `You won! The word was: ${secretWord}`;
+                guessInput.disabled = true;
+            } else if (remainingGuesses === 0) {
+                messageEl.textContent = `You lost! The word was: ${secretWord}`;
+                guessInput.disabled = true;
+            }
+        }
+        
+        guessInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                checkGuess(guessInput.value.toLowerCase());
+                guessInput.value = '';
+            }
+        });
+
+        // เริ่มเกมครั้งแรก
+        startGame();
+    </script>
+</body>
+</html>
