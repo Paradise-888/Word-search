@@ -1,0 +1,60 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #F8E9C7;
+    color: #333;
+    position: relative;
+    background-image: url('image/category.png'); /* รูปภาพพื้นหลัง category.png */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.category-container {
+    width: 100%;
+    max-width: 450px;
+    height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.back-button {
+    position: absolute;
+    bottom: 50px; /* ตำแหน่งด้านล่าง */
+    left: 20px; /* ตำแหน่งด้านซ้าย */
+}
+
+.back-arrow-image {
+    width: 60px; /* ขนาดลูกศร */
+    height: auto;
+    cursor: pointer;
+}
+
+.category-options {
+    position: absolute;
+    /* ตำแหน่งที่คาดว่าปุ่ม Animal และ Career จะอยู่บนภาพ category.png */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* ระยะห่างระหว่างปุ่ม */
+    padding-top: 100px; /* ปรับค่านี้เพื่อให้ปุ่มเลื่อนขึ้นหรือลงไปตรงกับรูปภาพ */
+}
+
+.category-button {
+    background: transparent; /* ทำให้ปุ่มโปร่งใส เพื่อให้เห็นพื้นหลังรูปภาพ */
+    border: none;
+    cursor: pointer;
+    width: 250px; /* ขนาดปุ่ม ให้พอดีกับปุ่มในรูปภาพ category.png */
+    height: 60px; /* ความสูงปุ่ม */
+    text-indent: -9999px; /* ซ่อนข้อความของปุ่ม */
+    outline: none;
+}
