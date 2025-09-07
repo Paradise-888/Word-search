@@ -8,7 +8,7 @@ body {
     background-color: #F8E9C7;
     color: #333;
     position: relative;
-    background-image: url('image/setting.png'); 
+    background-image: url('image/setting.png'); /* รูปภาพพื้นหลัง setting.png */
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -23,7 +23,7 @@ body {
 
 .back-button {
     position: absolute;
-    bottom: 50px;
+    bottom: 50px; /* ตำแหน่งด้านล่างซ้าย */
     left: 20px;
 }
 
@@ -35,7 +35,7 @@ body {
 
 .theme-options {
     position: absolute;
-    bottom: 20%;
+    bottom: 20%; /* ปรับตำแหน่งปุ่มธีม */
     left: 50%;
     transform: translateX(-50%);
     display: flex;
