@@ -3,36 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Word Craft - Animal Category</title>
+    <title>Word Craft - Animal Word Search</title>
     <link rel="stylesheet" href="menu-style.css">
     <style>
         body {
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
+            min-height: 100vh;
             text-align: center;
             font-family: Arial, sans-serif;
-            padding: 20px;
         }
-        .game-container {
-            margin-top: 50px;
-        }
-        #word-display {
-            font-size: 3rem;
-            letter-spacing: 10px;
-            margin-bottom: 20px;
-        }
-        #message {
-            font-size: 1.5rem;
-            color: green;
-        }
-        #guess-input {
-            font-size: 1.5rem;
-            width: 50px;
-            text-align: center;
+
+        .word-search-container {
             margin-top: 20px;
         }
+        
+        #word-list {
+            margin: 20px 0;
+            padding: 0;
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        #word-list li {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #333;
+        }
+
+        #word-grid {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            border: 2px solid #333;
+            background-color: #fff;
+            padding: 5px;
+            gap: 1px;
+            margin-top: 20px;
+            user-select: none;
+        }
+        
+        .grid-cell {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .found {
+            background-color: #90ee90;
+            color: #fff;
+        }
+        
         .back-button {
             position: fixed;
             bottom: 20px;
@@ -42,104 +74,154 @@
             font-size: 1.2rem;
         }
     </style>
-    
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const savedColor = localStorage.getItem('themeColor');
-            if (savedColor) {
-                document.body.style.backgroundColor = savedColor;
-            }
-        });
-    </script>
 </head>
 <body>
-    <div class="game-container">
-        <h1>Guess the Animal!</h1>
-        <p>ทายชื่อสัตว์ภาษาอังกฤษ</p>
-        <div id="word-display"></div>
-        <p id="remaining-guesses"></p>
-        <p id="guessed-letters"></p>
-        <p id="message"></p>
-
-        <input type="text" id="guess-input" maxlength="1" autofocus>
+    <div class="word-search-container">
+        <h1>Word Search</h1>
+        <h3>Find these animals:</h3>
+        <ul id="word-list"></ul>
+        <div id="word-grid"></div>
     </div>
     
     <a href="category.html" class="menu-button back-button">Back</a>
 
     <script>
-        const wordList = [
-            'tiger', 'lion', 'elephant', 'monkey', 'zebra',
-            'giraffe', 'bear', 'dolphin', 'shark', 'penguin'
-        ];
+        const wordList = ['TIGER', 'LION', 'ZEBRA', 'BEAR', 'SHARK', 'PANDA'];
+        const gridSize = 10;
+        const grid = [];
+        let isDrawing = false;
+        let startCell = null;
+        let endCell = null;
         
-        const wordDisplay = document.getElementById('word-display');
-        const remainingGuessesEl = document.getElementById('remaining-guesses');
-        const guessedLettersEl = document.getElementById('guessed-letters');
-        const messageEl = document.getElementById('message');
-        const guessInput = document.getElementById('guess-input');
+        const wordListEl = document.getElementById('word-list');
+        const wordGridEl = document.getElementById('word-grid');
 
-        let secretWord = '';
-        let guessedLetters = new Set();
-        let remainingGuesses = 6;
-        let displayWord = [];
-
-        function startGame() {
-            secretWord = wordList[Math.floor(Math.random() * wordList.length)];
-            guessedLetters.clear();
-            remainingGuesses = 6;
-            displayWord = Array(secretWord.length).fill('_');
-
-            updateDisplay();
-            messageEl.textContent = '';
-            guessInput.value = '';
-            guessInput.disabled = false;
-            guessInput.focus();
-        }
-
-        function updateDisplay() {
-            wordDisplay.textContent = displayWord.join(' ');
-            remainingGuessesEl.textContent = `Guesses left: ${remainingGuesses}`;
-            guessedLettersEl.textContent = `Guessed letters: ${Array.from(guessedLetters).sort().join(', ')}`;
-        }
-
-        function checkGuess(guess) {
-            if (!guess || guessedLetters.has(guess)) {
-                return;
+        function createGrid() {
+            for (let i = 0; i < gridSize * gridSize; i++) {
+                const cell = document.createElement('div');
+                cell.classList.add('grid-cell');
+                cell.dataset.index = i;
+                cell.textContent = getRandomLetter();
+                wordGridEl.appendChild(cell);
             }
+        }
+        
+        function getRandomLetter() {
+            const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            return alphabet[Math.floor(Math.random() * alphabet.length)];
+        }
 
-            guessedLetters.add(guess);
-
-            if (secretWord.includes(guess)) {
-                for (let i = 0; i < secretWord.length; i++) {
-                    if (secretWord[i] === guess) {
-                        displayWord[i] = guess;
+        function placeWords() {
+            wordList.forEach(word => {
+                let placed = false;
+                while (!placed) {
+                    const direction = Math.floor(Math.random() * 2); // 0: horizontal, 1: vertical
+                    const startPos = Math.floor(Math.random() * gridSize * gridSize);
+                    const startX = startPos % gridSize;
+                    const startY = Math.floor(startPos / gridSize);
+                    
+                    let canPlace = true;
+                    if (direction === 0 && startX + word.length > gridSize) {
+                        canPlace = false;
+                    }
+                    if (direction === 1 && startY + word.length > gridSize) {
+                        canPlace = false;
+                    }
+                    
+                    if (canPlace) {
+                        let cells = [];
+                        for (let i = 0; i < word.length; i++) {
+                            const x = startX + (direction === 0 ? i : 0);
+                            const y = startY + (direction === 1 ? i : 0);
+                            const index = y * gridSize + x;
+                            const cell = wordGridEl.children[index];
+                            if (cell.textContent !== getRandomLetter() && cell.textContent !== word[i]) {
+                                canPlace = false;
+                                break;
+                            }
+                            cells.push(cell);
+                        }
+                        
+                        if (canPlace) {
+                            cells.forEach((cell, i) => {
+                                cell.textContent = word[i];
+                            });
+                            placed = true;
+                        }
                     }
                 }
-                messageEl.textContent = 'Correct!';
-            } else {
-                remainingGuesses--;
-                messageEl.textContent = 'Incorrect!';
-            }
-
-            updateDisplay();
-            
-            if (displayWord.join('') === secretWord) {
-                messageEl.textContent = `You won! The word was: ${secretWord}`;
-                guessInput.disabled = true;
-            } else if (remainingGuesses === 0) {
-                messageEl.textContent = `You lost! The word was: ${secretWord}`;
-                guessInput.disabled = true;
-            }
+            });
         }
         
-        guessInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
-                checkGuess(guessInput.value.toLowerCase());
-                guessInput.value = '';
+        function displayWordList() {
+            wordList.forEach(word => {
+                const li = document.createElement('li');
+                li.textContent = word;
+                wordListEl.appendChild(li);
+            });
+        }
+        
+        function checkSelection() {
+            if (!startCell || !endCell) return;
+            
+            const startIdx = parseInt(startCell.dataset.index);
+            const endIdx = parseInt(endCell.dataset.index);
+            
+            const startX = startIdx % gridSize;
+            const startY = Math.floor(startIdx / gridSize);
+            const endX = endIdx % gridSize;
+            const endY = Math.floor(endIdx / gridSize);
+            
+            const selectedCells = getSelectedCells(startX, startY, endX, endY);
+            const selectedWord = selectedCells.map(cell => cell.textContent).join('');
+
+            wordList.forEach((word, i) => {
+                if (word === selectedWord || word === selectedWord.split('').reverse().join('')) {
+                    selectedCells.forEach(cell => cell.classList.add('found'));
+                    wordListEl.children[i].style.textDecoration = 'line-through';
+                    
+                    if (wordList.every((w, i) => wordListEl.children[i].style.textDecoration === 'line-through')) {
+                        setTimeout(() => alert('You found all the words!'), 500);
+                    }
+                }
+            });
+        }
+        
+        function getSelectedCells(startX, startY, endX, endY) {
+            const cells = [];
+            let dx = endX - startX;
+            let dy = endY - startY;
+            const length = Math.max(Math.abs(dx), Math.abs(dy)) + 1;
+            
+            dx = dx !== 0 ? Math.sign(dx) : 0;
+            dy = dy !== 0 ? Math.sign(dy) : 0;
+            
+            for (let i = 0; i < length; i++) {
+                const x = startX + i * dx;
+                const y = startY + i * dy;
+                const index = y * gridSize + x;
+                cells.push(wordGridEl.children[index]);
+            }
+            return cells;
+        }
+
+        wordGridEl.addEventListener('mousedown', (e) => {
+            isDrawing = true;
+            startCell = e.target;
+        });
+
+        wordGridEl.addEventListener('mouseup', (e) => {
+            if (isDrawing) {
+                isDrawing = false;
+                endCell = e.target;
+                checkSelection();
             }
         });
 
-        startGame();
+        createGrid();
+        placeWords();
+        displayWordList();
+        
     </script>
 </body>
 </html>
