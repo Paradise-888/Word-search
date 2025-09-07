@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Word Craft - Animal Category</title>
-    <link rel="stylesheet" href="menu-style.css"> <style>
-        /* สไตล์สำหรับหน้าเกม */
+    <link rel="stylesheet" href="menu-style.css">
+    <style>
         body {
             display: flex;
             flex-direction: column;
@@ -33,17 +33,24 @@
             text-align: center;
             margin-top: 20px;
         }
-        
-        /* สไตล์สำหรับปุ่มย้อนกลับที่มุมซ้ายล่าง */
         .back-button {
-            position: fixed; /* ทำให้ปุ่มอยู่ที่ตำแหน่งเดิมเสมอ แม้จะเลื่อนหน้าจอ */
-            bottom: 20px; /* เว้นระยะห่างจากขอบล่าง 20px */
-            left: 20px; /* เว้นระยะห่างจากขอบซ้าย 20px */
-            width: auto; /* กำหนดความกว้างอัตโนมัติ */
-            padding: 10px 20px; /* เพิ่มระยะห่างภายในปุ่ม */
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: auto;
+            padding: 10px 20px;
             font-size: 1.2rem;
         }
     </style>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedColor = localStorage.getItem('themeColor');
+            if (savedColor) {
+                document.body.style.backgroundColor = savedColor;
+            }
+        });
+    </script>
 </head>
 <body>
     <div class="game-container">

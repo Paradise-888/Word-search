@@ -3,19 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Word Search - Categories</title>
-    <link rel="stylesheet" href="category-style.css">
+    <title>Word Craft - Category</title>
+    <link rel="stylesheet" href="menu-style.css">
+    <style>
+        .category-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .category-button {
+            display: block;
+            width: 250px;
+            padding: 15px 30px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.5rem;
+            text-decoration: none;
+            color: #fff;
+            background-color: #555;
+            border-radius: 10px;
+            box-shadow: 0 5px #333;
+            transition: transform 0.2s;
+        }
+        .category-button:hover {
+            transform: translateY(-2px);
+        }
+        .back-button {
+            margin-top: 40px;
+            width: 100px;
+        }
+    </style>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedColor = localStorage.getItem('themeColor');
+            if (savedColor) {
+                document.body.style.backgroundColor = savedColor;
+            }
+        });
+    </script>
 </head>
 <body>
     <div class="category-container">
-        <a href="index.html" class="back-button">
-            <img src="image/back-arrow.png" alt="Back" class="back-arrow-image">
-        </a>
-        <div class="category-options">
-            <button class="category-button" id="animal-button"></button>
-            <button class="category-button" id="career-button"></button>
-        </div>
+        <a href="animal-game.html" class="category-button">Animal</a>
+        <a href="#" class="category-button">Career</a>
+        <a href="index.html" class="category-button back-button">Back</a>
     </div>
-    <script src="category-script.js"></script>
 </body>
 </html>

@@ -5,12 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Word Craft</title>
     <link rel="stylesheet" href="menu-style.css">
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedColor = localStorage.getItem('themeColor');
+            if (savedColor) {
+                document.body.style.backgroundColor = savedColor;
+            }
+        });
+    </script>
 </head>
 <body>
     <div class="main-menu-container">
         <div class="button-section">
             <a href="category.html" class="menu-button" id="play-button">PLAY</a>
-            
             <a href="setting.html" class="menu-button" id="setting-button">Settings</a>
         </div>
     </div>

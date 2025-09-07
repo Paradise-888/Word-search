@@ -13,15 +13,67 @@
             justify-content: center;
             min-height: 100vh;
         }
+        .color-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .color-button {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            box-shadow: 0 4px #888;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .color-button:hover {
+            transform: scale(1.1);
+        }
+        .color-button.active {
+            border-color: #000;
+            box-shadow: 0 0 0 4px #000;
+        }
     </style>
 </head>
 <body>
     <div class="settings-container">
+        <h1>Settings</h1>
         <img src="image/setting.png" alt="Settings Icon">
         
-        <p>นี่คือหน้าจอสำหรับการตั้งค่า</p>
-        
+        <h3>Choose your theme color:</h3>
+        <div class="color-buttons">
+            <div class="color-button" style="background-color: #add8e6;" data-color="#add8e6"></div> <div class="color-button" style="background-color: #90ee90;" data-color="#90ee90"></div> <div class="color-button" style="background-color: #ffb6c1;" data-color="#ffb6c1"></div> </div>
+
         <a href="index.html" class="menu-button" id="back-button">Back</a>
     </div>
+
+    <script>
+        const colorButtons = document.querySelectorAll('.color-button');
+        
+        colorButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const selectedColor = button.getAttribute('data-color');
+                localStorage.setItem('themeColor', selectedColor);
+                applyThemeColor(selectedColor);
+            });
+        });
+
+        function applyThemeColor(color) {
+            document.body.style.backgroundColor = color;
+        }
+        
+        const savedColor = localStorage.getItem('themeColor');
+        if (savedColor) {
+            applyThemeColor(savedColor);
+            colorButtons.forEach(button => {
+                if (button.getAttribute('data-color') === savedColor) {
+                    button.classList.add('active');
+                } else {
+                    button.classList.remove('active');
+                }
+            });
+        }
+    </script>
 </body>
 </html>
