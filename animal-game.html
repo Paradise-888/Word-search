@@ -72,6 +72,7 @@
             width: auto;
             padding: 10px 20px;
             font-size: 1.2rem;
+            box-shadow: none;
         }
     </style>
 </head>
@@ -115,7 +116,7 @@
             wordList.forEach(word => {
                 let placed = false;
                 while (!placed) {
-                    const direction = Math.floor(Math.random() * 2); // 0: horizontal, 1: vertical
+                    const direction = Math.floor(Math.random() * 2);
                     const startPos = Math.floor(Math.random() * gridSize * gridSize);
                     const startX = startPos % gridSize;
                     const startY = Math.floor(startPos / gridSize);
