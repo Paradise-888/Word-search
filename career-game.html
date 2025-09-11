@@ -3,27 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Word Craft - Career Word Search</title>
+    <title>Word Craft - Career</title>
     <link rel="stylesheet" href="menu-style.css">
 </head>
 <body class="light-mode">
     <div class="word-search-game-container">
-        <h1>Word Search</h1>
+        <h1>CAREER</h1>
         
         <div class="game-card">
             <div id="word-grid"></div>
         </div>
 
         <div class="words-to-find-card">
-            <h3>Words to Find</h3>
+            <h3>คำที่ต้องหา:</h3>
             <ul id="word-list"></ul>
         </div>
+        
     </div>
     
     <a href="category.html" class="back-button">
-        <img src="image/back-arrow.png" alt="Back to Category">
+        <img src="image/back-arrow.png" alt="Back to Main Menu">
     </a>
 
+    <script src="career-game.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const savedTheme = localStorage.getItem('theme');
@@ -31,188 +33,6 @@
                 document.body.className = savedTheme;
             } else {
                 document.body.className = 'light-mode';
-            }
-
-            createGrid();
-            placeWords();
-            displayWordList();
-        });
-
-        const wordList = ['TEACHER', 'DOCTOR', 'ARTIST', 'NURSE', 'ENGINEER'];
-        const gridSize = 10;
-        const grid = [];
-        let isDrawing = false;
-        let startCell = null;
-        let endCell = null;
-        let currentCells = [];
-        
-        const wordListEl = document.getElementById('word-list');
-        const wordGridEl = document.getElementById('word-grid');
-
-        function createGrid() {
-            wordGridEl.innerHTML = ''; // Clear existing grid
-            for (let i = 0; i < gridSize * gridSize; i++) {
-                const cell = document.createElement('div');
-                cell.classList.add('grid-cell');
-                cell.dataset.index = i;
-                cell.innerHTML = '<span>' + getRandomLetter() + '</span>'; // Wrap letter in span for centering
-                wordGridEl.appendChild(cell);
-            }
-        }
-        
-        function getRandomLetter() {
-            const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            return alphabet[Math.floor(Math.random() * alphabet.length)];
-        }
-
-        function placeWords() {
-            wordList.forEach(word => {
-                let placed = false;
-                while (!placed) {
-                    const direction = Math.floor(Math.random() * 2); // 0 = horizontal, 1 = vertical
-                    const startPos = Math.floor(Math.random() * gridSize * gridSize);
-                    const startX = startPos % gridSize;
-                    const startY = Math.floor(startPos / gridSize);
-                    
-                    let canPlace = true;
-                    if (direction === 0 && startX + word.length > gridSize) { // Check horizontal fit
-                        canPlace = false;
-                    }
-                    if (direction === 1 && startY + word.length > gridSize) { // Check vertical fit
-                        canPlace = false;
-                    }
-                    
-                    if (canPlace) {
-                        let cells = [];
-                        for (let i = 0; i < word.length; i++) {
-                            const x = startX + (direction === 0 ? i : 0);
-                            const y = startY + (direction === 1 ? i : 0);
-                            const index = y * gridSize + x;
-                            const cell = wordGridEl.children[index];
-                            // Check if cell is empty or contains the same letter
-                            if (cell.querySelector('span').textContent !== getRandomLetter() && cell.querySelector('span').textContent !== word[i]) {
-                                canPlace = false;
-                                break;
-                            }
-                            cells.push(cell);
-                        }
-                        
-                        if (canPlace) {
-                            cells.forEach((cell, i) => {
-                                cell.querySelector('span').textContent = word[i];
-                            });
-                            placed = true;
-                        }
-                    }
-                }
-            });
-        }
-        
-        function displayWordList() {
-            wordListEl.innerHTML = ''; // Clear existing list
-            wordList.forEach(word => {
-                const li = document.createElement('li');
-                li.textContent = word;
-                wordListEl.appendChild(li);
-            });
-        }
-        
-        function checkSelection() {
-            if (!startCell || !endCell) return;
-            
-            const startIdx = parseInt(startCell.dataset.index);
-            const endIdx = parseInt(endCell.dataset.index);
-            
-            const startX = startIdx % gridSize;
-            const startY = Math.floor(startIdx / gridSize);
-            const endX = endIdx % gridSize;
-            const endY = Math.floor(endIdx / gridSize);
-            
-            const selectedCells = getSelectedCells(startX, startY, endX, endY);
-            const selectedWord = selectedCells.map(cell => cell.querySelector('span').textContent).join('');
-
-            let found = false;
-            wordList.forEach((word, i) => {
-                if (word === selectedWord || word === selectedWord.split('').reverse().join('')) {
-                    selectedCells.forEach(cell => cell.classList.add('found'));
-                    wordListEl.children[i].classList.add('found'); // Add 'found' class to li
-                    found = true;
-                }
-            });
-            
-            if (!found) {
-                selectedCells.forEach(cell => cell.classList.add('wrong'));
-                setTimeout(() => {
-                    selectedCells.forEach(cell => cell.classList.remove('wrong'));
-                }, 500);
-            }
-            
-            if (wordList.every((w, i) => wordListEl.children[i].classList.contains('found'))) {
-                setTimeout(() => alert('You found all the words!'), 500);
-            }
-        }
-        
-        function getSelectedCells(startX, startY, endX, endY) {
-            const cells = [];
-            let dx = endX - startX;
-            let dy = endY - startY;
-            const length = Math.max(Math.abs(dx), Math.abs(dy)) + 1;
-            
-            dx = dx !== 0 ? Math.sign(dx) : 0;
-            dy = dy !== 0 ? Math.sign(dy) : 0;
-            
-            for (let i = 0; i < length; i++) {
-                const x = startX + i * dx;
-                const y = startY + i * dy;
-                const index = y * gridSize + x;
-                cells.push(wordGridEl.children[index]);
-            }
-            return cells;
-        }
-
-        wordGridEl.addEventListener('mousedown', (e) => {
-            isDrawing = true;
-            startCell = e.target.closest('.grid-cell'); // Ensure we get the cell div
-            if (startCell) {
-                currentCells = [];
-                wordGridEl.classList.add('drawing');
-                startCell.classList.add('highlighted');
-            }
-        });
-
-        wordGridEl.addEventListener('mouseup', (e) => {
-            if (isDrawing) {
-                isDrawing = false;
-                endCell = e.target.closest('.grid-cell');
-                if (endCell) {
-                    checkSelection();
-                }
-                currentCells.forEach(cell => cell.classList.remove('highlighted'));
-                wordGridEl.classList.remove('drawing');
-            }
-        });
-        
-        wordGridEl.addEventListener('mouseleave', () => {
-            if (isDrawing) {
-                isDrawing = false;
-                currentCells.forEach(cell => cell.classList.remove('highlighted'));
-                wordGridEl.classList.remove('drawing');
-            }
-        });
-
-        wordGridEl.addEventListener('mouseover', (e) => {
-            if (isDrawing && e.target.closest('.grid-cell')) {
-                currentCells.forEach(cell => cell.classList.remove('highlighted'));
-                endCell = e.target.closest('.grid-cell');
-                if (startCell && endCell) {
-                    currentCells = getSelectedCells(
-                        parseInt(startCell.dataset.index) % gridSize,
-                        Math.floor(parseInt(startCell.dataset.index) / gridSize),
-                        parseInt(endCell.dataset.index) % gridSize,
-                        Math.floor(parseInt(endCell.dataset.index) / gridSize)
-                    );
-                    currentCells.forEach(cell => cell.classList.add('highlighted'));
-                }
             }
         });
     </script>
