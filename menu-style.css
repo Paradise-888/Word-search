@@ -57,7 +57,7 @@ body {
     height: auto;
 }
 
-/* หน้าจอหลัก: ปรับให้แสดงผลเป็น Flexbox เพื่อจัดวางปุ่ม */
+/* Main menu page container - now the background */
 .main-menu-container {
     display: flex;
     flex-direction: column;
@@ -82,6 +82,16 @@ body {
     align-items: center;
     justify-content: center;
     flex-grow: 1;
+}
+
+/* Category page - แก้ไขตรงนี้ */
+.category-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* จัดให้อยู่กึ่งกลางแนวนอน */
+    justify-content: center; /* จัดให้อยู่กึ่งกลางแนวตั้ง */
+    min-height: 100vh;
+    width: 100vw;
 }
 
 /* Settings page container */
@@ -317,7 +327,6 @@ body {
 .dark-mode {
     background-color: #333;
     color: #f0f0f0;
-    /* แก้ไขการเปลี่ยนรูปภาพพื้นหลังสำหรับ Dark Mode ให้ใช้ setting.png */
     background-image: url('image/setting.png');
     background-size: cover;
     background-repeat: no-repeat;
