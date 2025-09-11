@@ -39,7 +39,7 @@ body {
     box-shadow: 0 2px #555, 0 1px 3px rgba(0,0,0,0.3);
 }
 
-/* Back button container - แก้ไขตรงนี้ */
+/* Back button container */
 .back-button {
     position: fixed;
     bottom: 20px;
@@ -49,8 +49,6 @@ body {
     box-shadow: none;
     transition: transform 0.2s;
     z-index: 100;
-    background: transparent; /* ทำให้พื้นหลังโปร่งใส */
-    border: none; /* ลบเส้นขอบถ้ามี */
 }
 
 /* Style for the back arrow image inside the button */
@@ -86,7 +84,7 @@ body {
     flex-grow: 1;
 }
 
-/* Category page */
+/* Category page - แก้ไขตรงนี้ */
 .category-container {
     display: flex;
     flex-direction: column;
@@ -94,6 +92,10 @@ body {
     justify-content: center;
     min-height: 100vh;
     width: 100vw;
+    background-image: url('image/category.png'); /* เพิ่มรูปภาพพื้นหลัง category.png */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 
 /* Settings page container */
