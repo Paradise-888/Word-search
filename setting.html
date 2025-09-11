@@ -8,13 +8,11 @@
 </head>
 <body>
     <div class="settings-container">
-        <h1>SETTINGS</h1>
+        <button class="theme-label-button">Theme</button>
+
+        <button class="theme-mode-button light" data-theme="light-mode"></button>
         
-        <h3>Choose your theme:</h3>
-        <div class="theme-buttons">
-            <button class="theme-button" data-theme="light-mode">Light</button>
-            <button class="theme-button" data-theme="dark-mode">Dark</button>
-        </div>
+        <button class="theme-mode-button dark" data-theme="dark-mode"></button>
     </div>
     
     <a href="index.html" class="back-button">
@@ -30,7 +28,7 @@
                 document.body.className = 'light-mode';
             }
 
-            const themeButtons = document.querySelectorAll('.theme-button');
+            const themeButtons = document.querySelectorAll('.theme-mode-button');
             themeButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     const theme = button.dataset.theme;

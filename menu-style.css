@@ -98,24 +98,84 @@ body {
     background-position: center center;
 }
 
-/* Settings page container */
+/* Settings page container - แก้ไขตรงนี้ */
 .settings-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
+    position: relative; /* สำคัญ: เพื่อให้กำหนดตำแหน่ง absolute ของปุ่มได้ */
     width: 100vw;
-    background-image: url('image/setting.png');
+    min-height: 100vh;
+    background-image: url('image/setting.png'); /* รูปภาพที่คุณให้มา */
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
-    position: relative;
+    display: flex; /* เพื่อจัดวางปุ่ม Theme และ SETTING ได้ */
+    flex-direction: column;
+    align-items: flex-start; /* เริ่มต้นจัดเรียงจากซ้าย */
+    justify-content: flex-start; /* เริ่มต้นจัดเรียงจากด้านบน */
+    padding: 20px; /* เพิ่ม padding เพื่อไม่ให้ชิดขอบมากเกินไป */
+    box-sizing: border-box; /* ให้ padding ไม่เพิ่มขนาดรวม */
+}
+
+/* ซ่อน h1 และ h3 เดิมถ้ามีใน setting.html เพราะอยู่ในรูปแล้ว */
+.settings-container h1, .settings-container h3 {
+    display: none;
 }
 
 .setting-image-container {
     display: none;
 }
+
+/* สไตล์สำหรับปุ่ม Theme */
+.theme-label-button {
+    position: absolute;
+    top: 27%; /* ปรับตำแหน่งตามรูปภาพของคุณ */
+    left: 10%; /* ปรับตำแหน่งตามรูปภาพของคุณ */
+    width: 120px; /* ปรับขนาดตามรูปภาพของคุณ */
+    height: 50px; /* ปรับขนาดตามรูปภาพของคุณ */
+    background-color: transparent; /* ทำให้พื้นหลังโปร่งใส */
+    border: none;
+    cursor: default; /* เปลี่ยน cursor ให้ไม่เหมือนปุ่มเพื่อบอกว่าไม่สามารถกดได้ */
+    font-size: 1.5rem;
+    color: #333; /* สีของข้อความ Theme */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none; /* ทำให้ไม่สามารถคลิกที่ปุ่มนี้ได้โดยตรง */
+}
+
+/* สไตล์สำหรับปุ่มวงกลม Light/Dark */
+.theme-mode-button {
+    position: absolute;
+    width: 45px; /* ขนาดของวงกลมในรูป */
+    height: 45px; /* ขนาดของวงกลมในรูป */
+    border-radius: 50%; /* ทำให้เป็นวงกลม */
+    border: 2px solid #555; /* ขอบของปุ่ม */
+    cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.1s;
+    opacity: 0.0; /* ทำให้ปุ่มโปร่งใส เพื่อให้เห็นวงกลมในรูป */
+}
+
+.theme-mode-button:hover {
+    transform: scale(1.1); /* ขยายเล็กน้อยเมื่อเมาส์ชี้ */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.7); /* เงารอบปุ่ม */
+}
+
+.theme-mode-button:active {
+    transform: scale(0.95); /* ย่อเล็กน้อยเมื่อกด */
+}
+
+/* ตำแหน่งของปุ่ม Light */
+.theme-mode-button.light {
+    top: 27%; /* ปรับตำแหน่งตามรูปภาพของคุณ */
+    left: 35%; /* ปรับตำแหน่งตามรูปภาพของคุณ */
+}
+
+/* ตำแหน่งของปุ่ม Dark */
+.theme-mode-button.dark {
+    top: 27%; /* ปรับตำแหน่งตามรูปภาพของคุณ */
+    left: 45%; /* ปรับตำแหน่งตามรูปภาพของคุณ */
+}
+
 
 /* Styles for Word Search Game container */
 .word-search-game-container {
@@ -331,6 +391,7 @@ body {
 .dark-mode {
     background-color: #333;
     color: #f0f0f0;
+    /* ใน Dark Mode เรายังใช้ setting.png เป็นพื้นหลัง แต่ธีมจะเปลี่ยนแค่สีตัวอักษรและปุ่มในเกม */
     background-image: url('image/setting.png');
     background-size: cover;
     background-repeat: no-repeat;
